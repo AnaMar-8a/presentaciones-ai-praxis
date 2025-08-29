@@ -1,222 +1,134 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AI Praxis - Resumen Ejecutivo</title>
-    
-    <!-- Dependencias Externas (CDN) -->
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700;900&display=swap" rel="stylesheet">
-    
-    <style>
-        /* --- CONFIGURACIÓN GENERAL Y TIPOGRAFÍA --- */
-        html {
-            scroll-behavior: smooth;
-        }
-        body {
-            font-family: 'Inter', sans-serif;
-            background-color: #f0fdfa; /* Teal-50: Fondo principal */
-            color: #111827;
-            overflow-x: hidden;
-        }
-        
-        /* --- PALETA DE COLORES PRINCIPAL (CSS Variables) --- */
-        :root {
-            --teal: #0d9488;
-            --teal-dark: #134e4a;
-            --yellow: #f59e0b;
-            --magenta: #d946ef;
-        }
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AI Praxis - Resumen Ejecutivo</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700;900&display=swap" rel="stylesheet">
+  <style>
+    body { font-family: 'Inter', sans-serif; background-color: #ffffff; color: #111827; margin:0; }
+    .animated-gradient-header {
+      background: linear-gradient(125deg, #0d9488, #d946ef, #f59e0b, #0d9488);
+      background-size: 600% 600%;
+      animation: gradient-flow 12s ease infinite;
+    }
+    @keyframes gradient-flow { 0% {background-position:0% 50%} 50% {background-position:100% 50%} 100% {background-position:0% 50%} }
 
-        /* --- FONDOS ANIMADOS --- */
-        .animated-gradient-header {
-            background: linear-gradient(125deg, var(--teal), var(--magenta), var(--yellow), var(--teal));
-            background-size: 600% 600%;
-            animation: gradient-flow 12s ease infinite;
-        }
-
-        @keyframes gradient-flow {
-            0% { background-position: 0% 50%; }
-            50% { background-position: 100% 50%; }
-            100% { background-position: 0% 50%; }
-        }
-
-        /* --- ESTILOS DE COMPONENTES Y ANIMACIONES DE ENTRADA --- */
-        .fade-in-up {
-            opacity: 0;
-            transform: translateY(30px);
-            transition: opacity 0.8s ease-out, transform 0.8s ease-out;
-        }
-        .is-visible .fade-in-up {
-            opacity: 1;
-            transform: translateY(0);
-        }
-        /* Animación escalonada para los elementos */
-        .is-visible .stagger-1 { transition-delay: 0.1s; }
-        .is-visible .stagger-2 { transition-delay: 0.2s; }
-        .is-visible .stagger-3 { transition-delay: 0.3s; }
-        .is-visible .stagger-4 { transition-delay: 0.4s; }
-
-        .section-title {
-            font-size: 2.5rem;
-            font-weight: 900;
-            text-transform: uppercase;
-        }
-        .card {
-            background-color: white;
-            border-radius: 0.75rem;
-            padding: 2.5rem;
-            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.05);
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
-            border: 1px solid #e5e7eb;
-        }
-        .card:hover {
-            transform: translateY(-10px);
-            box-shadow: 0 0 30px 0 rgba(217, 70, 239, 0.3); /* Efecto de brillo magenta */
-        }
-        
-        /* Clases de utilidad para colores */
-        .text-teal { color: var(--teal); }
-        .bg-teal-dark { background-color: var(--teal-dark); }
-        .text-yellow { color: var(--yellow); }
-        .bg-yellow { background-color: var(--yellow); }
-        .border-teal { border-color: var(--teal); }
-        .border-yellow { border-color: var(--yellow); }
-
-    </style>
+    /* Fondo de estrellas animadas */
+    .stars {
+      position: relative;
+      background: #0f172a;
+      overflow: hidden;
+    }
+    .stars::before, .stars::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(2px 2px at 20px 30px, white, transparent),
+                  radial-gradient(2px 2px at 40px 70px, white, transparent),
+                  radial-gradient(2px 2px at 100px 150px, white, transparent),
+                  radial-gradient(2px 2px at 200px 80px, white, transparent),
+                  radial-gradient(2px 2px at 300px 200px, white, transparent),
+                  radial-gradient(2px 2px at 400px 120px, white, transparent);
+      background-size: 500px 500px;
+      animation: moveStars 60s linear infinite;
+    }
+    .stars::after { opacity: 0.5; animation-duration: 120s; }
+    @keyframes moveStars { from { background-position: 0 0; } to { background-position: -1000px 1000px; } }
+  </style>
 </head>
-<body class="antialiased">
-    
-    <!-- Hero Section -->
-    <header class="animated-gradient-header text-white text-center py-24 px-6" data-observe>
-        <div class="fade-in-up stagger-1">
-            <h1 class="text-5xl md:text-7xl font-black uppercase tracking-wider" style="text-shadow: 2px 2px 10px rgba(0,0,0,0.2);">AI PRAXIS</h1>
-            <p class="text-xl md:text-2xl font-light mt-4 text-yellow">Inteligencia Aplicada, Práctica Real</p>
+<body>
+
+  <!-- Hero Section -->
+  <header class="animated-gradient-header text-white text-center py-24 px-6">
+    <h1 class="text-5xl md:text-7xl font-black uppercase tracking-wider drop-shadow-lg">AI PRAXIS</h1>
+    <p class="text-xl md:text-2xl font-light mt-4 text-yellow-300">Inteligencia Aplicada, Práctica Real</p>
+    <p class="mt-6 max-w-3xl mx-auto text-lg leading-relaxed">Un entrenamiento de alto rendimiento diseñado por <strong>Ana María Ochoa Patiño</strong> para convertir la IA en su aliado estratégico.</p>
+    <div class="mt-10 flex flex-col md:flex-row gap-6 justify-center">
+      <a href="AI_Praxis-contenido.html" class="bg-yellow-400 text-gray-900 font-bold py-4 px-10 rounded-full text-lg shadow-lg hover:shadow-yellow-400/50 transition transform hover:scale-105">Ver Contenido del Curso</a>
+      <a href="AI_Praxis-com.html" class="bg-white text-teal-700 border-2 border-teal-600 font-bold py-4 px-10 rounded-full text-lg shadow-lg hover:bg-teal-600 hover:text-white transition">Ver Propuesta Completa</a>
+    </div>
+  </header>
+
+  <!-- Value Proposition -->
+  <main class="py-20 px-6 max-w-6xl mx-auto">
+    <section class="text-center mb-24">
+      <h2 class="text-3xl md:text-5xl font-black text-teal-700 uppercase mb-12">Su Transformación Estratégica</h2>
+      <div class="grid md:grid-cols-3 gap-8">
+        <div class="bg-white border rounded-lg p-8 shadow hover:shadow-lg transition">
+          <h3 class="text-xl font-bold text-teal-700 mb-3">Optimice su Práctica</h3>
+          <p class="text-gray-600">Reduzca la carga administrativa y dedique más tiempo al análisis y la entrega de soluciones de vanguardia.</p>
         </div>
-        <div class="fade-in-up stagger-2 mt-8 max-w-3xl mx-auto">
-            <p class="text-lg leading-relaxed">Un entrenamiento de alto rendimiento diseñado por <strong>Ana María Ochoa Patiño</strong> para convertir la IA en su aliado estratégico, optimizando su práctica profesional y redefiniendo lo que es posible.</p>
+        <div class="bg-white border rounded-lg p-8 shadow hover:shadow-lg transition">
+          <h3 class="text-xl font-bold text-teal-700 mb-3">Acelere la Investigación</h3>
+          <p class="text-gray-600">Sistematice evidencia y genere hipótesis disruptivas a una velocidad sin precedentes.</p>
         </div>
-    </header>
-
-    <main class="py-20 px-6">
-        <!-- Value Proposition Section -->
-        <section class="max-w-6xl mx-auto mb-24 text-center" data-observe>
-            <h2 class="section-title text-teal mb-12 fade-in-up">Su Transformación Estratégica</h2>
-            <div class="grid md:grid-cols-3 gap-8">
-                <div class="card fade-in-up stagger-1">
-                    <h3 class="text-xl font-bold text-teal mb-3">Optimice su Práctica</h3>
-                    <p class="text-gray-600 leading-relaxed">Reduzca la carga administrativa y dedique más tiempo al análisis y la entrega de soluciones de vanguardia.</p>
-                </div>
-                <div class="card fade-in-up stagger-2">
-                    <h3 class="text-xl font-bold text-teal mb-3">Acelere la Investigación</h3>
-                    <p class="text-gray-600 leading-relaxed">Sistematice evidencia y genere hipótesis disruptivas a una velocidad sin precedentes.</p>
-                </div>
-                <div class="card fade-in-up stagger-3">
-                    <h3 class="text-xl font-bold text-teal mb-3">Lidere con Integridad</h3>
-                    <p class="text-gray-600 leading-relaxed">Innove con total tranquilidad gracias a un dominio profundo de la ética y la ciberseguridad en IA.</p>
-                </div>
-            </div>
-        </section>
-
-        <!-- Learning Path Section -->
-        <section class="bg-teal-dark text-white py-24 px-6" data-observe>
-            <div class="max-w-6xl mx-auto">
-                <h2 class="section-title text-white mb-16 text-center fade-in-up">Su Ruta de Victorias</h2>
-                <div class="relative">
-                    <!-- Línea horizontal -->
-                    <div class="hidden md:block absolute top-10 left-0 w-full h-0.5 bg-teal-500 opacity-50 -translate-y-1/2"></div>
-                    <div class="grid md:grid-cols-4 gap-12 relative">
-                        <div class="text-center fade-in-up stagger-1">
-                            <div class="mb-4 bg-teal-dark border-4 border-yellow rounded-full w-20 h-20 flex items-center justify-center mx-auto text-3xl font-black text-yellow">1</div>
-                            <h3 class="font-bold text-lg text-white">Usuario Estratégico</h3>
-                            <p class="text-sm text-gray-300 mt-2">Dominará las plataformas líderes y las aplicará con confianza.</p>
-                        </div>
-                        <div class="text-center fade-in-up stagger-2">
-                            <div class="mb-4 bg-teal-dark border-4 border-yellow rounded-full w-20 h-20 flex items-center justify-center mx-auto text-3xl font-black text-yellow">2</div>
-                            <h3 class="font-bold text-lg text-white">Arquitecto de Soluciones</h3>
-                            <p class="text-sm text-gray-300 mt-2">Diseñará "prompts" de alta precisión para potenciar sus resultados.</p>
-                        </div>
-                        <div class="text-center fade-in-up stagger-3">
-                            <div class="mb-4 bg-teal-dark border-4 border-yellow rounded-full w-20 h-20 flex items-center justify-center mx-auto text-3xl font-black text-yellow">3</div>
-                            <h3 class="font-bold text-lg text-white">Creador de Valor</h3>
-                            <p class="text-sm text-gray-300 mt-2">Construirá agentes digitales que automaticen la gestión y le devuelvan tiempo.</p>
-                        </div>
-                        <div class="text-center fade-in-up stagger-4">
-                            <div class="mb-4 bg-teal-dark border-4 border-yellow rounded-full w-20 h-20 flex items-center justify-center mx-auto text-3xl font-black text-yellow">4</div>
-                            <h3 class="font-bold text-lg text-white">Líder Visionario</h3>
-                            <p class="text-sm text-gray-300 mt-2">Desarrollará la visión para liderar con IA, anticipando el futuro de su sector.</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- Investment Section -->
-        <section class="max-w-5xl mx-auto text-center py-24 px-6" data-observe>
-            <h2 class="section-title text-teal mb-12 fade-in-up">Modalidades Estratégicas</h2>
-            <div class="grid md:grid-cols-2 gap-12">
-                <div class="card border-t-8 border-teal fade-in-up stagger-1">
-                    <h3 class="text-2xl font-black uppercase mb-3">Modalidad Insignia</h3>
-                    <p class="text-xl font-bold text-teal mb-4">Inmersión Presencial Exclusiva</p>
-                    <p class="text-gray-600 mb-6 leading-relaxed">Para un grupo selecto de <strong>hasta 20 líderes</strong>. Optimizada para networking y colaboración directa.</p>
-                    <div class="mt-6">
-                        <p class="text-2xl font-bold text-gray-800">Inversión a convenir</p>
-                    </div>
-                </div>
-                <div class="card border-t-8 border-yellow fade-in-up stagger-2">
-                    <h3 class="text-2xl font-black uppercase mb-3">Modalidad Estratégica</h3>
-                    <p class="text-xl font-bold text-teal mb-4">Impacto Virtual Concentrado</p>
-                    <p class="text-gray-600 mb-6 leading-relaxed">Para un grupo de <strong>hasta 15 participantes</strong>. Misma profundidad con experiencia interactiva garantizada.</p>
-                     <div class="mt-6">
-                        <p class="text-2xl font-bold text-gray-800">Inversión a convenir</p>
-                    </div>
-                </div>
-            </div>
-        </section>
-    </main>
-
-    <!-- Footer / CTA -->
-    <footer class="animated-gradient-header text-white text-center py-20 px-6" data-observe>
-        <div class="fade-in-up stagger-1">
-            <h2 class="text-3xl font-bold mb-6 leading-tight">Esta es una invitación a posicionar a su asociación como un líder indiscutible en la vanguardia profesional.</h2>
+        <div class="bg-white border rounded-lg p-8 shadow hover:shadow-lg transition">
+          <h3 class="text-xl font-bold text-teal-700 mb-3">Lidere con Integridad</h3>
+          <p class="text-gray-600">Innove con total tranquilidad gracias a un dominio profundo de la ética y la ciberseguridad en IA.</p>
         </div>
-        <div class="fade-in-up stagger-2">
-            <p class="text-xl text-gray-200 mb-10 leading-relaxed">Quedo a su entera disposición para conversar sobre esta propuesta.</p>
-        </div>
-        <div class="flex flex-col md:flex-row items-center justify-center gap-6 fade-in-up stagger-3">
-            <a href="mailto:8a.anamaria@gmail.com?subject=Interés en el Programa AI Praxis" class="bg-yellow text-gray-900 font-bold py-4 px-10 rounded-full text-xl shadow-lg hover:shadow-yellow-400/50 transition-all duration-300 transform hover:scale-105 inline-block">Contactar por Correo</a>
-            <a href="https://www.linkedin.com/in/8aanamaria/" target="_blank" class="text-white font-bold border-2 border-white rounded-full py-3 px-8 hover:bg-white hover:text-teal-700 transition-colors">
-                Conectar en LinkedIn
-            </a>
-        </div>
-    </footer>
+      </div>
+    </section>
 
-    <script>
-        document.addEventListener('DOMContentLoaded', () => {
-            // --- LÓGICA DE ANIMACIÓN AL HACER SCROLL ---
-            // Esta función se encarga de añadir la clase 'is-visible' a las secciones
-            // cuando entran en el campo de visión, activando las animaciones CSS.
-            
-            const observer = new IntersectionObserver((entries) => {
-                entries.forEach(entry => {
-                    if (entry.isIntersecting) {
-                        entry.target.classList.add('is-visible');
-                    }
-                });
-            }, { 
-                root: null, 
-                threshold: 0.2, // La animación se activa cuando el 20% de la sección es visible
-            });
+    <!-- Learning Path -->
+    <section class="stars text-white py-24 px-6 rounded-xl relative">
+      <h2 class="text-3xl md:text-5xl font-black text-center mb-16 uppercase relative z-10">Su Ruta de Victorias</h2>
+      <div class="grid md:grid-cols-4 gap-12 relative z-10">
+        <div class="text-center">
+          <div class="mb-4 bg-teal-900 border-4 border-yellow-400 rounded-full w-20 h-20 flex items-center justify-center mx-auto text-3xl font-black text-yellow-400">1</div>
+          <h3 class="font-bold text-lg">Usuario Estratégico</h3>
+          <p class="text-sm text-gray-300 mt-2">Dominará las plataformas líderes y las aplicará con confianza.</p>
+        </div>
+        <div class="text-center">
+          <div class="mb-4 bg-teal-900 border-4 border-yellow-400 rounded-full w-20 h-20 flex items-center justify-center mx-auto text-3xl font-black text-yellow-400">2</div>
+          <h3 class="font-bold text-lg">Arquitecto de Soluciones</h3>
+          <p class="text-sm text-gray-300 mt-2">Diseñará "prompts" de alta precisión para potenciar sus resultados.</p>
+        </div>
+        <div class="text-center">
+          <div class="mb-4 bg-teal-900 border-4 border-yellow-400 rounded-full w-20 h-20 flex items-center justify-center mx-auto text-3xl font-black text-yellow-400">3</div>
+          <h3 class="font-bold text-lg">Creador de Valor</h3>
+          <p class="text-sm text-gray-300 mt-2">Construirá agentes digitales que automaticen la gestión y le devuelvan tiempo.</p>
+        </div>
+        <div class="text-center">
+          <div class="mb-4 bg-teal-900 border-4 border-yellow-400 rounded-full w-20 h-20 flex items-center justify-center mx-auto text-3xl font-black text-yellow-400">4</div>
+          <h3 class="font-bold text-lg">Líder Visionario</h3>
+          <p class="text-sm text-gray-300 mt-2">Desarrollará la visión para liderar con IA, anticipando el futuro de su sector.</p>
+        </div>
+      </div>
+    </section>
 
-            // Se seleccionan todas las secciones que tienen el atributo 'data-observe'
-            const elementsToObserve = document.querySelectorAll('[data-observe]');
-            elementsToObserve.forEach(el => observer.observe(el));
-        });
-    </script>
+    <!-- Investment Section -->
+    <section class="text-center py-24 px-6">
+      <h2 class="text-3xl md:text-5xl font-black text-teal-700 uppercase mb-12">Modalidades Estratégicas</h2>
+      <div class="grid md:grid-cols-2 gap-12">
+        <div class="bg-white border-t-8 border-teal-600 rounded-lg p-10 shadow hover:shadow-lg transition">
+          <h3 class="text-2xl font-black uppercase mb-3">Modalidad Insignia</h3>
+          <p class="text-xl font-bold text-teal-700 mb-4">Inmersión Presencial Exclusiva</p>
+          <p class="text-gray-600 mb-6 leading-relaxed">Para un grupo selecto de <strong>hasta 20 líderes</strong>. Optimizada para networking y colaboración directa.</p>
+          <p class="text-2xl font-bold text-gray-800">Inversión a convenir</p>
+        </div>
+        <div class="bg-white border-t-8 border-yellow-400 rounded-lg p-10 shadow hover:shadow-lg transition">
+          <h3 class="text-2xl font-black uppercase mb-3">Modalidad Estratégica</h3>
+          <p class="text-xl font-bold text-teal-700 mb-4">Impacto Virtual Concentrado</p>
+          <p class="text-gray-600 mb-6 leading-relaxed">Para un grupo de <strong>hasta 15 participantes</strong>. Misma profundidad con experiencia interactiva garantizada.</p>
+          <p class="text-2xl font-bold text-gray-800">Inversión a convenir</p>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- Footer -->
+  <footer class="animated-gradient-header text-white text-center py-20 px-6">
+    <h2 class="text-3xl font-bold mb-6 leading-tight">Invitación a posicionar a su asociación como líder indiscutible en la vanguardia profesional.</h2>
+    <p class="text-xl text-gray-200 mb-10 leading-relaxed">Quedo a su disposición para conversar sobre esta propuesta.</p>
+    <div class="flex flex-col md:flex-row items-center justify-center gap-6">
+      <a href="mailto:8a.anamaria@gmail.com?subject=Interés en el Programa AI Praxis" class="bg-yellow-400 text-gray-900 font-bold py-4 px-10 rounded-full text-xl shadow-lg hover:shadow-yellow-400/50 transition transform hover:scale-105">Contactar por Correo</a>
+      <a href="https://www.linkedin.com/in/8aanamaria/" target="_blank" class="text-white font-bold border-2 border-white rounded-full py-3 px-8 hover:bg-white hover:text-teal-700 transition">Conectar en LinkedIn</a>
+    </div>
+  </footer>
 
 </body>
 </html>
-
