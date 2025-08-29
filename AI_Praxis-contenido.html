@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Contenido del Curso - AI Praxis</title>
+    <title>Presentación AI Praxis</title>
     
     <!-- Dependencias Externas (CDN) -->
     <script src="https://cdn.tailwindcss.com"></script>
@@ -48,7 +48,7 @@
             position: relative;
             overflow: hidden;
         }
-        .particle-canvas {
+        #particle-canvas {
             position: absolute;
             top: 0; left: 0;
             width: 100%; height: 100%;
@@ -69,7 +69,7 @@
             flex-direction: column;
             justify-content: center;
             align-items: center;
-            padding: 2rem 1rem;
+            padding: 2rem;
             position: relative;
             z-index: 1;
         }
@@ -96,20 +96,19 @@
             text-transform: uppercase;
         }
         .card {
-            background-color: rgba(255, 255, 255, 0.9);
+            background-color: rgba(255, 255, 255, 0.85);
             backdrop-filter: blur(12px);
             border-radius: 0.75rem;
             padding: 2.5rem;
             border: 1px solid rgba(255, 255, 255, 0.2);
             box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
             transition: transform 0.3s ease, box-shadow 0.3s ease;
-            position: relative;
         }
         .card:hover {
             transform: translateY(-10px) scale(1.02);
-            box-shadow: 0 0 30px 0 rgba(217, 70, 239, 0.4); /* Efecto de brillo magenta */
+            box-shadow: 0 0 25px 0 rgba(217, 70, 239, 0.4); /* Efecto de brillo magenta */
         }
-        
+
         /* Clases de utilidad para colores */
         .text-teal-transformative { color: var(--teal); }
         .text-amber-emphasis { color: var(--yellow); }
@@ -136,233 +135,157 @@
             transform: scaleX(1);
             transition-delay: 0.5s;
         }
-
-        /* --- ANIMACIÓN DE NÚMEROS --- */
-        .counter-number {
-            font-weight: 900;
-            font-size: 4rem; /* 5xl */
-        }
     </style>
 </head>
 <body class="antialiased">
     
-    <!-- Slide 1: Título del Contenido -->
+    <!-- Slide 1: Título -->
     <section id="slide-1" class="slide animated-gradient-teal text-white text-center">
+        <a href="./index.html" class="absolute top-5 left-5 z-50 bg-black/20 text-white rounded-full py-2 px-4 text-sm hover:bg-black/40 transition backdrop-blur-sm">← Volver al Inicio</a>
         <div class="magenta-sparkle-detail"></div>
         <div class="slide-content stagger-1">
-            <p class="text-2xl md:text-3xl font-light text-amber-emphasis">Contenido del Curso</p>
-            <h1 class="text-6xl md:text-8xl font-black uppercase tracking-wider mt-2" style="text-shadow: 3px 3px 15px rgba(0,0,0,0.3);">AI PRAXIS</h1>
+            <h1 class="text-6xl md:text-8xl font-black uppercase tracking-wider" style="text-shadow: 3px 3px 15px rgba(0,0,0,0.3);">AI PRAXIS</h1>
         </div>
-        <div class="slide-content stagger-2 mt-8 max-w-2xl">
-            <p class="text-lg leading-relaxed">Un viaje de transformación práctica de <strong>28 horas</strong>, distribuidas en <strong>7 módulos intensivos</strong>, más un módulo de preparación asincrónico.</p>
+        <div class="slide-content stagger-2">
+            <p class="text-2xl md:text-3xl font-light mt-4 text-amber-emphasis">Inteligencia Aplicada, Práctica Real</p>
+        </div>
+        <div class="slide-content stagger-3 mt-12 border-t-2 border-magenta-sparkle pt-6 max-w-2xl">
+            <p class="text-lg leading-relaxed">Una propuesta de formación de alto rendimiento por <strong>Ana María Ochoa Patiño</strong>, diseñada a la medida de las necesidades prácticas de su asociación.</p>
         </div>
     </section>
 
-    <!-- Slide 2: Objetivo General -->
+    <!-- Slide 2: Propuesta de Valor -->
     <section id="slide-2" class="slide animated-gradient-light">
         <div class="magenta-sparkle-detail"></div>
-        <div class="max-w-4xl mx-auto text-center">
-            <h2 class="section-title text-teal-transformative mb-8 slide-content stagger-1">Objetivo General</h2>
-            <div class="card slide-content stagger-2">
-                <p class="text-xl text-gray-700 leading-relaxed">Brindar a los profesionales de la salud competencias <strong>técnicas, éticas y prácticas</strong> para integrar la Inteligencia Artificial en su quehacer médico, científico y administrativo, fortaleciendo la toma de decisiones, el desarrollo de investigación y la gestión de equipos.</p>
+        <div class="max-w-5xl mx-auto text-center">
+            <h2 class="section-title text-teal-transformative mb-12 slide-content stagger-1">Nuestra Propuesta de Valor</h2>
+            <p class="text-xl mb-12 max-w-3xl mx-auto text-gray-600 leading-relaxed slide-content stagger-2">Convertir la Inteligencia Artificial en un <strong>aliado estratégico</strong> para sus miembros. Este entrenamiento intensivo de 28 horas es una formación práctica donde cada participante construirá una solución real y de alto valor.</p>
+            <div class="grid md:grid-cols-3 gap-8">
+                <div class="card text-left slide-content stagger-2">
+                    <h3 class="text-xl font-bold text-teal-transformative mb-3">Práctica Profesional</h3>
+                    <p class="text-gray-700 leading-relaxed">Trascender la documentación para enfocarse en el análisis de alto nivel y la entrega de soluciones de vanguardia.</p>
+                </div>
+                <div class="card text-left slide-content stagger-3">
+                    <h3 class="text-xl font-bold text-teal-transformative mb-3">Labor Investigativa</h3>
+                    <p class="text-gray-700 leading-relaxed">Ser pioneros en el descubrimiento, sistematizando la evidencia y generando hipótesis disruptivas a una velocidad sin precedentes.</p>
+                </div>
+                <div class="card text-left slide-content stagger-4">
+                    <h3 class="text-xl font-bold text-teal-transformative mb-3">Gestión y Liderazgo</h3>
+                    <p class="text-gray-700 leading-relaxed">Arquitectar un modelo de eficiencia, automatizando procesos para liberar recursos y enfocarlos en el crecimiento estratégico.</p>
+                </div>
             </div>
         </div>
     </section>
 
-    <!-- Slide 3: Módulos 0 y 1 -->
+    <!-- Slide 3: Ruta de Victorias -->
     <section id="slide-3" class="slide dark-texture text-white">
-        <canvas class="particle-canvas"></canvas>
         <div class="magenta-sparkle-detail"></div>
-        <div class="max-w-5xl w-full mx-auto z-10">
-            <h2 class="section-title text-white mb-12 text-center slide-content stagger-1">Módulos de Fundación</h2>
-            <div class="grid md:grid-cols-2 gap-8">
-                <div class="slide-content stagger-2">
-                    <h3 class="text-2xl font-bold text-amber-emphasis mb-4">Módulo 0: Nivelación (Pre-Work)</h3>
-                    <ul class="list-disc list-inside space-y-2 text-gray-300">
-                        <li>Video: IA y su transformación en medicina.</li>
-                        <li>Lectura: Glosario Esencial de IA para Médicos.</li>
-                        <li>Lectura: Consideraciones Éticas y de Ciberseguridad.</li>
-                        <li>Actividad: Cuestionario formativo online.</li>
-                    </ul>
+        <canvas id="particle-canvas"></canvas>
+        <div class="max-w-4xl mx-auto text-center z-10">
+            <h2 class="section-title text-white mb-16 slide-content stagger-1">Su Ruta de Victorias</h2>
+            <div class="space-y-8 text-left">
+                <div class="flex items-start slide-content stagger-1">
+                    <div class="text-3xl font-black text-amber-emphasis mr-6">01.</div>
+                    <div>
+                        <h3 class="text-2xl font-bold mb-2">De Cero a Usuario Estratégico</h3>
+                        <p class="text-gray-300 leading-relaxed">Dominará las plataformas líderes y las aplicará con confianza para resolver sus primeros desafíos profesionales.</p>
+                    </div>
                 </div>
-                <div class="slide-content stagger-3">
-                    <h3 class="text-2xl font-bold text-amber-emphasis mb-4">Módulo 1: Fundamentos de IA</h3>
-                    <ul class="list-disc list-inside space-y-2 text-gray-300">
-                        <li>Conceptos: Machine Learning, Deep Learning, NLP.</li>
-                        <li>Presentación y creación de cuentas en herramientas clave.</li>
-                        <li>La IA como extensión de las capacidades profesionales.</li>
-                        <li>Práctica: Mapa personal de aplicaciones de IA.</li>
-                    </ul>
+                <div class="flex items-start slide-content stagger-2">
+                    <div class="text-3xl font-black text-amber-emphasis mr-6">02.</div>
+                    <div>
+                        <h3 class="text-2xl font-bold mb-2">De Arquitecto de Soluciones</h3>
+                        <p class="text-gray-300 leading-relaxed">Diseñará "prompts" de alta precisión para acelerar análisis y potenciar la calidad de sus resultados.</p>
+                    </div>
+                </div>
+                <div class="flex items-start slide-content stagger-3">
+                    <div class="text-3xl font-black text-amber-emphasis mr-6">03.</div>
+                    <div>
+                        <h3 class="text-2xl font-bold mb-2">De Usuario a Creador</h3>
+                        <p class="text-gray-300 leading-relaxed">Construirá agentes digitales que automaticen la gestión de su práctica y le devuelvan el control de su tiempo.</p>
+                    </div>
+                </div>
+                 <div class="flex items-start slide-content stagger-4">
+                    <div class="text-3xl font-black text-amber-emphasis mr-6">04.</div>
+                    <div>
+                        <h3 class="text-2xl font-bold mb-2">Liderar con Visión de Futuro</h3>
+                        <p class="text-gray-300 leading-relaxed">Desarrollará la visión estratégica para liderar con IA, anticipando las tendencias que definirán el futuro de su sector.</p>
+                    </div>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Slide 4: Módulos 2 y 3 -->
+    <!-- Slide 4: Diferencial -->
     <section id="slide-4" class="slide animated-gradient-light">
         <div class="magenta-sparkle-detail"></div>
-        <div class="max-w-5xl w-full mx-auto">
-            <h2 class="section-title text-teal-transformative mb-12 text-center slide-content stagger-1">Módulos de Habilidad Práctica</h2>
-            <div class="grid md:grid-cols-2 gap-8">
-                <div class="card slide-content stagger-2">
-                    <h3 class="text-2xl font-bold text-teal-transformative mb-4">Módulo 2: Plataformas Esenciales</h3>
-                    <ul class="list-disc list-inside space-y-2 text-gray-700">
-                        <li>Revisión comparativa de plataformas (ChatGPT, Gemini, etc.).</li>
-                        <li>Aplicaciones en clínica, investigación y gestión.</li>
-                        <li>Ética: Transparencia y responsabilidad.</li>
-                        <li>Práctica: Desarrollo de 3 productos (nota, abstract, reporte).</li>
-                    </ul>
-                </div>
-                <div class="card slide-content stagger-3">
-                    <h3 class="text-2xl font-bold text-teal-transformative mb-4">Módulo 3: Diseño de Prompts</h3>
-                    <ul class="list-disc list-inside space-y-2 text-gray-700">
-                        <li>Principios del prompting: claridad, contexto, rol, formato.</li>
-                        <li>Prompts básicos vs. avanzados.</li>
-                        <li>Ciberseguridad: Manejo de información sensible.</li>
-                        <li>Práctica: Construcción de un banco de 15 prompts.</li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Slide 5: Módulos 4 y 5 -->
-    <section id="slide-5" class="slide dark-texture text-white">
-        <canvas class="particle-canvas"></canvas>
-        <div class="magenta-sparkle-detail"></div>
-        <div class="max-w-5xl w-full mx-auto z-10">
-            <h2 class="section-title text-white mb-12 text-center slide-content stagger-1">Módulos de Aplicación Estratégica</h2>
-            <div class="grid md:grid-cols-2 gap-8">
-                <div class="slide-content stagger-2">
-                    <h3 class="text-2xl font-bold text-amber-emphasis mb-4">Módulo 4: IA en Investigación</h3>
-                    <ul class="list-disc list-inside space-y-2 text-gray-300">
-                        <li>Sistematización de literatura y generación de hipótesis.</li>
-                        <li>Redacción de artículos científicos (Normas IMRyD).</li>
-                        <li>Ética: Directrices COPE y uso legítimo.</li>
-                        <li>Práctica: Redacción de un mini-protocolo de investigación.</li>
-                    </ul>
-                </div>
-                <div class="slide-content stagger-3">
-                    <h3 class="text-2xl font-bold text-amber-emphasis mb-4">Módulo 5: IA en Gestión</h3>
-                    <ul class="list-disc list-inside space-y-2 text-gray-300">
-                        <li>Optimización de agendas, inventarios y facturación.</li>
-                        <li>Uso de IA para selección y capacitación de personal.</li>
-                        <li>Planeación estratégica en consultorios.</li>
-                        <li>Práctica: Simulación de planeación administrativa.</li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Slide 6: Módulos 6 y 7 -->
-    <section id="slide-6" class="slide animated-gradient-light">
-        <div class="magenta-sparkle-detail"></div>
-        <div class="max-w-5xl w-full mx-auto">
-            <h2 class="section-title text-teal-transformative mb-12 text-center slide-content stagger-1">Módulos de Creación y Visión</h2>
-            <div class="grid md:grid-cols-2 gap-8">
-                <div class="card slide-content stagger-2">
-                    <h3 class="text-2xl font-bold text-teal-transformative mb-4">Módulo 6: Construcción de Agentes</h3>
-                    <ul class="list-disc list-inside space-y-2 text-gray-700">
-                        <li>Introducción a los agentes digitales (Custom GPTs).</li>
-                        <li>Diseño de flujos conversacionales.</li>
-                        <li>Casos de uso: triage, soporte, gestión.</li>
-                        <li>Práctica: Construcción de un prototipo de agente.</li>
-                    </ul>
-                </div>
-                <div class="card slide-content stagger-3">
-                    <h3 class="text-2xl font-bold text-teal-transformative mb-4">Módulo 7: Proyecto Final</h3>
-                    <ul class="list-disc list-inside space-y-2 text-gray-700">
-                        <li>Análisis de casos de uso y tendencias futuras.</li>
-                        <li>Dilemas éticos contemporáneos.</li>
-                        <li>Auditoría de proyectos con IA.</li>
-                        <li>Práctica: Presentación del proyecto integral.</li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Slide 7: Metodología y Evaluación -->
-    <section id="slide-7" class="slide dark-texture text-white">
-        <canvas class="particle-canvas"></canvas>
-        <div class="magenta-sparkle-detail"></div>
-        <div class="max-w-5xl w-full mx-auto text-center z-10">
-            <h2 class="section-title text-white mb-12 slide-content stagger-1">Metodología y Evaluación</h2>
-            <div class="grid md:grid-cols-2 gap-12">
-                <div class="text-left slide-content stagger-2">
-                    <h3 class="text-3xl font-bold text-amber-emphasis mb-4">Metodología Práctica</h3>
-                    <p class="counter-number" data-target="70">0%</p>
-                    <p class="text-xl text-gray-300">del curso está dedicado a talleres, laboratorios y proyectos de co-creación.</p>
-                    <p class="counter-number mt-6" data-target="30">0%</p>
-                    <p class="text-xl text-gray-300">corresponde a exposiciones magistrales y debates éticos.</p>
-                </div>
-                <div class="text-left slide-content stagger-3">
-                    <h3 class="text-3xl font-bold text-amber-emphasis mb-4">Evaluación Aplicada</h3>
-                    <p class="counter-number" data-target="40">0%</p>
-                    <p class="text-xl text-gray-300">Entregables prácticos por módulo.</p>
-                    <p class="counter-number mt-6" data-target="40">0%</p>
-                    <p class="text-xl text-gray-300">Proyecto final integral y aplicable.</p>
-                     <p class="counter-number mt-6" data-target="20">0%</p>
-                    <p class="text-xl text-gray-300">Participación activa en debates.</p>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Slide 8: El Proyecto Final -->
-    <section id="slide-8" class="slide animated-gradient-light">
-        <div class="magenta-sparkle-detail"></div>
         <div class="max-w-4xl mx-auto text-center">
-            <h2 class="section-title text-teal-transformative mb-8 slide-content stagger-1">El Proyecto Final</h2>
-             <p class="text-xl mb-8 max-w-3xl mx-auto text-gray-600 leading-relaxed slide-content stagger-2">El curso culmina con la creación de una <strong>solución real</strong>, diseñada para resolver un problema de su entorno profesional.</p>
-            <div class="card slide-content stagger-3">
-                <h3 class="text-2xl font-bold text-teal-transformative mb-4">Líneas de Proyecto</h3>
-                <div class="grid md:grid-cols-3 gap-4 text-left">
-                    <div>
-                        <p class="font-bold">1. Clínica:</p>
-                        <ul class="list-disc list-inside text-gray-700">
-                            <li>Asistente digital.</li>
-                            <li>Flujo de prompts.</li>
-                            <li>Herramienta predictiva.</li>
-                        </ul>
-                    </div>
-                    <div>
-                        <p class="font-bold">2. Investigación:</p>
-                        <ul class="list-disc list-inside text-gray-700">
-                            <li>Sistema de revisión.</li>
-                            <li>Prototipo de redacción.</li>
-                            <li>Asistente metodológico.</li>
-                        </ul>
-                    </div>
-                    <div>
-                        <p class="font-bold">3. Gestión:</p>
-                        <ul class="list-disc list-inside text-gray-700">
-                            <li>Agente de citas.</li>
-                            <li>Herramienta de inventarios.</li>
-                            <li>Modelo de capacitación.</li>
-                        </ul>
-                    </div>
+            <h2 class="section-title text-teal-transformative mb-12 slide-content stagger-1">¿Por Qué AI Praxis es una Categoría en Sí Misma?</h2>
+            <div class="card slide-content stagger-2">
+                <table class="w-full text-lg">
+                    <tbody>
+                        <tr class="border-b border-gray-200">
+                            <td class="py-4 text-gray-500">Otros Cursos</td>
+                            <td class="py-4 font-bold text-teal-transformative">100% enfocado en la aplicabilidad práctica y estratégica.</td>
+                        </tr>
+                        <tr class="border-b border-gray-200">
+                            <td class="py-4 text-gray-500">Otros Cursos</td>
+                            <td class="py-4 font-bold text-teal-transformative">Visión integral 360°: Práctica, Investigación y Gestión.</td>
+                        </tr>
+                        <tr class="border-b border-gray-200">
+                            <td class="py-4 text-gray-500">Otros Cursos</td>
+                            <td class="py-4 font-bold text-teal-transformative">La Ética y la Ciberseguridad son el pilar de cada módulo.</td>
+                        </tr>
+                        <tr>
+                            <td class="py-4 text-gray-500">Otros Cursos</td>
+                            <td class="py-4 font-bold text-teal-transformative">Culmina con un proyecto de alto impacto listo para implementar.</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </section>
+
+    <!-- Slide 5: Inversión -->
+    <section id="slide-5" class="slide animated-gradient-light">
+        <div class="magenta-sparkle-detail"></div>
+        <div class="max-w-5xl mx-auto text-center">
+            <h2 class="section-title text-teal-transformative mb-12 slide-content stagger-1">Inversión Estratégica para ACICME</h2>
+            <div class="grid md:grid-cols-2 gap-12">
+                <div class="card border-t-8 border-teal-transformative slide-content stagger-2">
+                    <h3 class="text-2xl font-black uppercase mb-3">Modalidad Insignia</h3>
+                    <p class="text-xl font-bold text-teal-transformative mb-4">Inmersión Presencial Exclusiva</p>
+                    <p class="text-gray-600 mb-6 leading-relaxed">Para un grupo selecto de <strong>hasta 20 líderes</strong>. Optimizada para networking y colaboración directa.</p>
+                    <div class="text-5xl font-black my-4">$7.500.000 <span class="text-lg font-normal">COP</span></div>
+                    <p class="text-sm text-gray-500">(Honorarios)</p>
+                </div>
+                <div class="card border-t-8 border-amber-emphasis slide-content stagger-3">
+                    <h3 class="text-2xl font-black uppercase mb-3">Modalidad Estratégica</h3>
+                    <p class="text-xl font-bold text-teal-transformative mb-4">Impacto Virtual Concentrado</p>
+                    <p class="text-gray-600 mb-6 leading-relaxed">Para un grupo de <strong>hasta 15 participantes</strong>. Misma profundidad con experiencia interactiva garantizada.</p>
+                    <div class="text-5xl font-black my-4">$6.000.000 <span class="text-lg font-normal">COP</span></div>
+                    <p class="text-sm text-gray-500">(Honorarios)</p>
                 </div>
             </div>
+            <p class="text-center mt-10 text-lg text-gray-700 slide-content stagger-4"><strong>Forma de Pago:</strong> 30% de anticipo para dar inicio al programa y 70% a su finalización.</p>
         </div>
     </section>
     
-    <!-- Slide 9: Cierre y Contacto -->
-    <section id="slide-9" class="slide animated-gradient-teal text-white text-center">
+    <!-- Slide 6: Cierre y Contacto -->
+    <section id="slide-6" class="slide animated-gradient-teal text-white text-center">
         <div class="magenta-sparkle-detail"></div>
         <div class="slide-content stagger-1">
-            <h2 class="text-4xl font-bold mb-6 leading-tight">Gracias por explorar el contenido de AI Praxis.</h2>
+            <h2 class="text-4xl font-bold mb-6 leading-tight">Esta es una invitación a posicionar a ACICME como un líder indiscutible en la vanguardia de la medicina moderna.</h2>
         </div>
         <div class="slide-content stagger-2">
-            <p class="text-xl text-gray-200 mb-10 leading-relaxed">Quedo a su entera disposición para cualquier consulta sobre el programa.</p>
+            <p class="text-xl text-gray-200 mb-10 leading-relaxed">Quedo a su entera disposición para conversar sobre esta propuesta y definir el mejor camino para implementar este programa de élite.</p>
         </div>
         <div class="slide-content stagger-3">
-            <a href="mailto:8a.anamaria@gmail.com?subject=Consulta sobre el contenido de AI Praxis" class="bg-amber-emphasis text-gray-900 font-bold py-4 px-10 rounded-full text-xl shadow-lg hover:shadow-amber-400/50 transition-all duration-300 transform hover:scale-105 inline-block">Contactar por Correo</a>
+            <a href="mailto:8a.anamaria@gmail.com?subject=Interés en el Programa AI Praxis" class="bg-amber-emphasis text-gray-900 font-bold py-4 px-10 rounded-full text-xl hover:bg-amber-400 transition-all duration-300 transform hover:scale-105 inline-block">Contactar por Correo</a>
         </div>
         <div class="mt-8 slide-content stagger-4">
             <p class="mb-4">O encuéntreme en mis redes profesionales:</p>
-            <a href="https://www.linkedin.com/in/8aanamaria/" target="_blank" class="text-white font-bold border-2 border-white rounded-full py-2 px-6 hover:bg-white hover:text-teal-700 transition-colors">
+            <a href="https://www.linkedin.com/in/8aanamaria/" target="_blank" class="text-white font-bold border-2 border-white rounded-full py-2 px-6 hover:bg-white hover:text-teal-transformative transition-colors">
                 LinkedIn
             </a>
         </div>
@@ -376,26 +299,22 @@
 
     <script>
         document.addEventListener('DOMContentLoaded', () => {
-            // --- LÓGICA DE ANIMACIÓN DE PARTÍCULAS ---
-            const canvases = document.querySelectorAll('.particle-canvas');
-            canvases.forEach(canvas => {
+            // --- LÓGICA DE ANIMACIÓN DE PARTÍCULAS (para la diapositiva oscura) ---
+            const canvas = document.getElementById('particle-canvas');
+            if (canvas) {
                 const ctx = canvas.getContext('2d');
                 let particles = [];
+                // Ajustar tamaño del canvas a su contenedor
                 canvas.width = canvas.offsetWidth;
                 canvas.height = canvas.offsetHeight;
 
                 class Particle {
                     constructor(x, y) {
                         this.x = x; this.y = y;
-                        this.size = Math.random() * 2.0 + 0.5;
+                        this.size = Math.random() * 1.5 + 0.5;
                         this.speedX = Math.random() * 0.4 - 0.2;
                         this.speedY = Math.random() * 0.4 - 0.2;
-                        const colors = [
-                            `rgba(245, 158, 11, ${Math.random() * 0.8 + 0.2})`, // Yellow
-                            `rgba(217, 70, 239, ${Math.random() * 0.8 + 0.2})`, // Magenta
-                            `rgba(255, 255, 255, ${Math.random() * 0.8 + 0.2})`  // White
-                        ];
-                        this.color = colors[Math.floor(Math.random() * colors.length)];
+                        this.color = `rgba(245, 158, 11, ${Math.random() * 0.5 + 0.2})`; // Amarillo énfasis
                     }
                     update() {
                         this.x += this.speedX; this.y += this.speedY;
@@ -421,62 +340,40 @@
 
                 function animateParticles() {
                     ctx.clearRect(0, 0, canvas.width, canvas.height);
-                    if (particles.length < 250) { // Mayor densidad de partículas
+                    // Generar nuevas partículas hasta un límite
+                    if (particles.length < 100) {
                        particles.push(new Particle(Math.random() * canvas.width, Math.random() * canvas.height));
                     }
                     handleParticles();
                     requestAnimationFrame(animateParticles);
                 }
                 animateParticles();
+                // Reajustar el canvas si la ventana cambia de tamaño
                  window.addEventListener('resize', () => {
                     canvas.width = canvas.offsetWidth;
                     canvas.height = canvas.offsetHeight;
                 });
-            });
+            }
 
             // --- LÓGICA DE ANIMACIÓN AL HACER SCROLL ---
             const slides = document.querySelectorAll('.slide');
             let currentSlideIndex = 0;
 
+            // IntersectionObserver detecta qué diapositiva está visible
             const observer = new IntersectionObserver((entries) => {
                 entries.forEach(entry => {
                     if (entry.isIntersecting) {
                         entry.target.classList.add('is-visible');
+                        // Actualizar el índice de la diapositiva actual para la navegación
                         const visibleSlideId = entry.target.id.split('-')[1];
                         currentSlideIndex = parseInt(visibleSlideId) - 1;
-
-                        if (entry.target.id === 'slide-7') {
-                            const counters = entry.target.querySelectorAll('.counter-number');
-                            counters.forEach(counter => {
-                                const target = +counter.getAttribute('data-target');
-                                if (!counter.hasAttribute('data-animated')) {
-                                    animateCounter(counter, target);
-                                    counter.setAttribute('data-animated', 'true');
-                                }
-                            });
-                        }
                     } else {
                          entry.target.classList.remove('is-visible');
                     }
                 });
-            }, { root: null, threshold: 0.5 });
+            }, { root: null, threshold: 0.5 }); // Se activa cuando el 50% de la slide es visible
 
             slides.forEach(slide => { observer.observe(slide); });
-
-            // --- FUNCIÓN PARA ANIMAR NÚMEROS ---
-            function animateCounter(element, target) {
-                let current = 0;
-                const duration = 1500;
-                const stepTime = Math.abs(Math.floor(duration / target));
-                const timer = setInterval(() => {
-                    current += 1;
-                    element.innerText = current + '%';
-                    if (current >= target) {
-                        clearInterval(timer);
-                        element.innerText = target + '%';
-                    }
-                }, stepTime);
-            }
 
             // --- LÓGICA DE LOS BOTONES DE NAVEGACIÓN ---
             const prevBtn = document.getElementById('prevBtn');
