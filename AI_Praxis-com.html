@@ -1,0 +1,393 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Presentación AI Praxis</title>
+    
+    <!-- Dependencias Externas (CDN) -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700;900&display=swap" rel="stylesheet">
+    
+    <style>
+        /* --- CONFIGURACIÓN GENERAL Y TIPOGRAFÍA --- */
+        html {
+            scroll-behavior: smooth;
+        }
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #0a0a0a; 
+            color: #1A202C;
+            overflow-x: hidden;
+        }
+        
+        /* --- PALETA DE COLORES PRINCIPAL (CSS Variables) --- */
+        :root {
+            --teal: #0d9488;
+            --yellow: #f59e0b;
+            --magenta: #d946ef;
+            --dark-bg: #111827;
+            --light-bg: #f3f4f6;
+        }
+
+        /* --- FONDOS ANIMADOS Y TEXTURAS --- */
+        .animated-gradient-teal {
+            background: linear-gradient(270deg, var(--teal), #14b8a6, #2dd4bf);
+            background-size: 400% 400%;
+            animation: gradient-flow 10s ease infinite;
+        }
+        .animated-gradient-light {
+            background: linear-gradient(270deg, #ffffff, #e5e7eb, #ffffff);
+            background-size: 400% 400%;
+            animation: gradient-flow 15s ease infinite;
+        }
+        .dark-texture {
+            background-color: var(--dark-bg);
+            position: relative;
+            overflow: hidden;
+        }
+        #particle-canvas {
+            position: absolute;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            z-index: 0;
+        }
+
+        /* Keyframes para las animaciones de fondo */
+        @keyframes gradient-flow {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        /* --- ESTILOS DE COMPONENTES Y ANIMACIONES DE ENTRADA --- */
+        .slide {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 2rem;
+            position: relative;
+            z-index: 1;
+        }
+        /* La animación de entrada se aplica a los contenedores internos */
+        .slide-content {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+        }
+        /* Cuando la diapositiva es visible, se activan las animaciones */
+        .slide.is-visible .slide-content {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        /* Animación escalonada para los elementos */
+        .slide.is-visible .stagger-1 { transition-delay: 0.1s; }
+        .slide.is-visible .stagger-2 { transition-delay: 0.2s; }
+        .slide.is-visible .stagger-3 { transition-delay: 0.3s; }
+        .slide.is-visible .stagger-4 { transition-delay: 0.4s; }
+
+        .section-title {
+            font-size: 2.5rem;
+            font-weight: 900;
+            text-transform: uppercase;
+        }
+        .card {
+            background-color: rgba(255, 255, 255, 0.85);
+            backdrop-filter: blur(12px);
+            border-radius: 0.75rem;
+            padding: 2.5rem;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        .card:hover {
+            transform: translateY(-10px) scale(1.02);
+            box-shadow: 0 0 25px 0 rgba(217, 70, 239, 0.4); /* Efecto de brillo magenta */
+        }
+
+        /* Clases de utilidad para colores */
+        .text-teal-transformative { color: var(--teal); }
+        .text-amber-emphasis { color: var(--yellow); }
+        .bg-amber-emphasis { background-color: var(--yellow); }
+        .border-magenta-sparkle { border-color: var(--magenta); }
+
+        /* --- DETALLE MAGENTA SUTIL --- */
+        .magenta-sparkle-detail {
+            position: absolute;
+            top: 2.5rem;
+            left: 2.5rem;
+            width: 60px;
+            height: 3px;
+            background: var(--magenta);
+            border-radius: 3px;
+            box-shadow: 0 0 15px var(--magenta);
+            opacity: 0;
+            transform: scaleX(0);
+            transform-origin: left;
+            transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+        }
+        .slide.is-visible .magenta-sparkle-detail {
+            opacity: 1;
+            transform: scaleX(1);
+            transition-delay: 0.5s;
+        }
+    </style>
+</head>
+<body class="antialiased">
+    
+    <!-- Slide 1: Título -->
+    <section id="slide-1" class="slide animated-gradient-teal text-white text-center">
+        <div class="magenta-sparkle-detail"></div>
+        <div class="slide-content stagger-1">
+            <h1 class="text-6xl md:text-8xl font-black uppercase tracking-wider" style="text-shadow: 3px 3px 15px rgba(0,0,0,0.3);">AI PRAXIS</h1>
+        </div>
+        <div class="slide-content stagger-2">
+            <p class="text-2xl md:text-3xl font-light mt-4 text-amber-emphasis">Inteligencia Aplicada, Práctica Real</p>
+        </div>
+        <div class="slide-content stagger-3 mt-12 border-t-2 border-magenta-sparkle pt-6 max-w-2xl">
+            <p class="text-lg leading-relaxed">Una propuesta de formación de alto rendimiento por <strong>Ana María Ochoa Patiño</strong>, diseñada a la medida de las necesidades prácticas de su asociación.</p>
+        </div>
+    </section>
+
+    <!-- Slide 2: Propuesta de Valor -->
+    <section id="slide-2" class="slide animated-gradient-light">
+        <div class="magenta-sparkle-detail"></div>
+        <div class="max-w-5xl mx-auto text-center">
+            <h2 class="section-title text-teal-transformative mb-12 slide-content stagger-1">Nuestra Propuesta de Valor</h2>
+            <p class="text-xl mb-12 max-w-3xl mx-auto text-gray-600 leading-relaxed slide-content stagger-2">Convertir la Inteligencia Artificial en un <strong>aliado estratégico</strong> para sus miembros. Este entrenamiento intensivo de 28 horas es una formación práctica donde cada participante construirá una solución real y de alto valor.</p>
+            <div class="grid md:grid-cols-3 gap-8">
+                <div class="card text-left slide-content stagger-2">
+                    <h3 class="text-xl font-bold text-teal-transformative mb-3">Práctica Profesional</h3>
+                    <p class="text-gray-700 leading-relaxed">Trascender la documentación para enfocarse en el análisis de alto nivel y la entrega de soluciones de vanguardia.</p>
+                </div>
+                <div class="card text-left slide-content stagger-3">
+                    <h3 class="text-xl font-bold text-teal-transformative mb-3">Labor Investigativa</h3>
+                    <p class="text-gray-700 leading-relaxed">Ser pioneros en el descubrimiento, sistematizando la evidencia y generando hipótesis disruptivas a una velocidad sin precedentes.</p>
+                </div>
+                <div class="card text-left slide-content stagger-4">
+                    <h3 class="text-xl font-bold text-teal-transformative mb-3">Gestión y Liderazgo</h3>
+                    <p class="text-gray-700 leading-relaxed">Arquitectar un modelo de eficiencia, automatizando procesos para liberar recursos y enfocarlos en el crecimiento estratégico.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Slide 3: Ruta de Victorias -->
+    <section id="slide-3" class="slide dark-texture text-white">
+        <div class="magenta-sparkle-detail"></div>
+        <canvas id="particle-canvas"></canvas>
+        <div class="max-w-4xl mx-auto text-center z-10">
+            <h2 class="section-title text-white mb-16 slide-content stagger-1">Su Ruta de Victorias</h2>
+            <div class="space-y-8 text-left">
+                <div class="flex items-start slide-content stagger-1">
+                    <div class="text-3xl font-black text-amber-emphasis mr-6">01.</div>
+                    <div>
+                        <h3 class="text-2xl font-bold mb-2">De Cero a Usuario Estratégico</h3>
+                        <p class="text-gray-300 leading-relaxed">Dominará las plataformas líderes y las aplicará con confianza para resolver sus primeros desafíos profesionales.</p>
+                    </div>
+                </div>
+                <div class="flex items-start slide-content stagger-2">
+                    <div class="text-3xl font-black text-amber-emphasis mr-6">02.</div>
+                    <div>
+                        <h3 class="text-2xl font-bold mb-2">De Arquitecto de Soluciones</h3>
+                        <p class="text-gray-300 leading-relaxed">Diseñará "prompts" de alta precisión para acelerar análisis y potenciar la calidad de sus resultados.</p>
+                    </div>
+                </div>
+                <div class="flex items-start slide-content stagger-3">
+                    <div class="text-3xl font-black text-amber-emphasis mr-6">03.</div>
+                    <div>
+                        <h3 class="text-2xl font-bold mb-2">De Usuario a Creador</h3>
+                        <p class="text-gray-300 leading-relaxed">Construirá agentes digitales que automaticen la gestión de su práctica y le devuelvan el control de su tiempo.</p>
+                    </div>
+                </div>
+                 <div class="flex items-start slide-content stagger-4">
+                    <div class="text-3xl font-black text-amber-emphasis mr-6">04.</div>
+                    <div>
+                        <h3 class="text-2xl font-bold mb-2">Liderar con Visión de Futuro</h3>
+                        <p class="text-gray-300 leading-relaxed">Desarrollará la visión estratégica para liderar con IA, anticipando las tendencias que definirán el futuro de su sector.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Slide 4: Diferencial -->
+    <section id="slide-4" class="slide animated-gradient-light">
+        <div class="magenta-sparkle-detail"></div>
+        <div class="max-w-4xl mx-auto text-center">
+            <h2 class="section-title text-teal-transformative mb-12 slide-content stagger-1">¿Por Qué AI Praxis es una Categoría en Sí Misma?</h2>
+            <div class="card slide-content stagger-2">
+                <table class="w-full text-lg">
+                    <tbody>
+                        <tr class="border-b border-gray-200">
+                            <td class="py-4 text-gray-500">Otros Cursos</td>
+                            <td class="py-4 font-bold text-teal-transformative">100% enfocado en la aplicabilidad práctica y estratégica.</td>
+                        </tr>
+                        <tr class="border-b border-gray-200">
+                            <td class="py-4 text-gray-500">Otros Cursos</td>
+                            <td class="py-4 font-bold text-teal-transformative">Visión integral 360°: Práctica, Investigación y Gestión.</td>
+                        </tr>
+                        <tr class="border-b border-gray-200">
+                            <td class="py-4 text-gray-500">Otros Cursos</td>
+                            <td class="py-4 font-bold text-teal-transformative">La Ética y la Ciberseguridad son el pilar de cada módulo.</td>
+                        </tr>
+                        <tr>
+                            <td class="py-4 text-gray-500">Otros Cursos</td>
+                            <td class="py-4 font-bold text-teal-transformative">Culmina con un proyecto de alto impacto listo para implementar.</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </section>
+
+    <!-- Slide 5: Inversión -->
+    <section id="slide-5" class="slide animated-gradient-light">
+        <div class="magenta-sparkle-detail"></div>
+        <div class="max-w-5xl mx-auto text-center">
+            <h2 class="section-title text-teal-transformative mb-12 slide-content stagger-1">Inversión Estratégica para ACICME</h2>
+            <div class="grid md:grid-cols-2 gap-12">
+                <div class="card border-t-8 border-teal-transformative slide-content stagger-2">
+                    <h3 class="text-2xl font-black uppercase mb-3">Modalidad Insignia</h3>
+                    <p class="text-xl font-bold text-teal-transformative mb-4">Inmersión Presencial Exclusiva</p>
+                    <p class="text-gray-600 mb-6 leading-relaxed">Para un grupo selecto de <strong>hasta 20 líderes</strong>. Optimizada para networking y colaboración directa.</p>
+                    <div class="text-5xl font-black my-4">$7.500.000 <span class="text-lg font-normal">COP</span></div>
+                    <p class="text-sm text-gray-500">(Honorarios)</p>
+                </div>
+                <div class="card border-t-8 border-amber-emphasis slide-content stagger-3">
+                    <h3 class="text-2xl font-black uppercase mb-3">Modalidad Estratégica</h3>
+                    <p class="text-xl font-bold text-teal-transformative mb-4">Impacto Virtual Concentrado</p>
+                    <p class="text-gray-600 mb-6 leading-relaxed">Para un grupo de <strong>hasta 15 participantes</strong>. Misma profundidad con experiencia interactiva garantizada.</p>
+                    <div class="text-5xl font-black my-4">$6.000.000 <span class="text-lg font-normal">COP</span></div>
+                    <p class="text-sm text-gray-500">(Honorarios)</p>
+                </div>
+            </div>
+            <p class="text-center mt-10 text-lg text-gray-700 slide-content stagger-4"><strong>Forma de Pago:</strong> 30% de anticipo para dar inicio al programa y 70% a su finalización.</p>
+        </div>
+    </section>
+    
+    <!-- Slide 6: Cierre y Contacto -->
+    <section id="slide-6" class="slide animated-gradient-teal text-white text-center">
+        <div class="magenta-sparkle-detail"></div>
+        <div class="slide-content stagger-1">
+            <h2 class="text-4xl font-bold mb-6 leading-tight">Esta es una invitación a posicionar a ACICME como un líder indiscutible en la vanguardia de la medicina moderna.</h2>
+        </div>
+        <div class="slide-content stagger-2">
+            <p class="text-xl text-gray-200 mb-10 leading-relaxed">Quedo a su entera disposición para conversar sobre esta propuesta y definir el mejor camino para implementar este programa de élite.</p>
+        </div>
+        <div class="slide-content stagger-3">
+            <a href="mailto:8a.anamaria@gmail.com?subject=Interés en el Programa AI Praxis" class="bg-amber-emphasis text-gray-900 font-bold py-4 px-10 rounded-full text-xl hover:bg-amber-400 transition-all duration-300 transform hover:scale-105 inline-block">Contactar por Correo</a>
+        </div>
+        <div class="mt-8 slide-content stagger-4">
+            <p class="mb-4">O encuéntreme en mis redes profesionales:</p>
+            <a href="https://www.linkedin.com/in/8aanamaria/" target="_blank" class="text-white font-bold border-2 border-white rounded-full py-2 px-6 hover:bg-white hover:text-teal-transformative transition-colors">
+                LinkedIn
+            </a>
+        </div>
+    </section>
+
+    <!-- Botones de Navegación -->
+    <div class="fixed bottom-5 right-5 z-50 flex gap-2">
+        <button id="prevBtn" class="bg-black/20 text-white rounded-full w-12 h-12 text-2xl hover:bg-black/40 transition backdrop-blur-sm">&#9650;</button>
+        <button id="nextBtn" class="bg-black/20 text-white rounded-full w-12 h-12 text-2xl hover:bg-black/40 transition backdrop-blur-sm">&#9660;</button>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            // --- LÓGICA DE ANIMACIÓN DE PARTÍCULAS (para la diapositiva oscura) ---
+            const canvas = document.getElementById('particle-canvas');
+            if (canvas) {
+                const ctx = canvas.getContext('2d');
+                let particles = [];
+                // Ajustar tamaño del canvas a su contenedor
+                canvas.width = canvas.offsetWidth;
+                canvas.height = canvas.offsetHeight;
+
+                class Particle {
+                    constructor(x, y) {
+                        this.x = x; this.y = y;
+                        this.size = Math.random() * 1.5 + 0.5;
+                        this.speedX = Math.random() * 0.4 - 0.2;
+                        this.speedY = Math.random() * 0.4 - 0.2;
+                        this.color = `rgba(245, 158, 11, ${Math.random() * 0.5 + 0.2})`; // Amarillo énfasis
+                    }
+                    update() {
+                        this.x += this.speedX; this.y += this.speedY;
+                        if (this.size > 0.1) this.size -= 0.01;
+                    }
+                    draw() {
+                        ctx.fillStyle = this.color;
+                        ctx.beginPath();
+                        ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+                        ctx.fill();
+                    }
+                }
+
+                function handleParticles() {
+                    for (let i = 0; i < particles.length; i++) {
+                        particles[i].update();
+                        particles[i].draw();
+                        if (particles[i].size <= 0.1) {
+                            particles.splice(i, 1); i--;
+                        }
+                    }
+                }
+
+                function animateParticles() {
+                    ctx.clearRect(0, 0, canvas.width, canvas.height);
+                    // Generar nuevas partículas hasta un límite
+                    if (particles.length < 100) {
+                       particles.push(new Particle(Math.random() * canvas.width, Math.random() * canvas.height));
+                    }
+                    handleParticles();
+                    requestAnimationFrame(animateParticles);
+                }
+                animateParticles();
+                // Reajustar el canvas si la ventana cambia de tamaño
+                 window.addEventListener('resize', () => {
+                    canvas.width = canvas.offsetWidth;
+                    canvas.height = canvas.offsetHeight;
+                });
+            }
+
+            // --- LÓGICA DE ANIMACIÓN AL HACER SCROLL ---
+            const slides = document.querySelectorAll('.slide');
+            let currentSlideIndex = 0;
+
+            // IntersectionObserver detecta qué diapositiva está visible
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('is-visible');
+                        // Actualizar el índice de la diapositiva actual para la navegación
+                        const visibleSlideId = entry.target.id.split('-')[1];
+                        currentSlideIndex = parseInt(visibleSlideId) - 1;
+                    } else {
+                         entry.target.classList.remove('is-visible');
+                    }
+                });
+            }, { root: null, threshold: 0.5 }); // Se activa cuando el 50% de la slide es visible
+
+            slides.forEach(slide => { observer.observe(slide); });
+
+            // --- LÓGICA DE LOS BOTONES DE NAVEGACIÓN ---
+            const prevBtn = document.getElementById('prevBtn');
+            const nextBtn = document.getElementById('nextBtn');
+
+            function navigateTo(index) {
+                if (index >= 0 && index < slides.length) {
+                    slides[index].scrollIntoView({ behavior: 'smooth' });
+                }
+            }
+
+            prevBtn.addEventListener('click', () => { navigateTo(currentSlideIndex - 1); });
+            nextBtn.addEventListener('click', () => { navigateTo(currentSlideIndex + 1); });
+        });
+    </script>
+
+</body>
+</html>
