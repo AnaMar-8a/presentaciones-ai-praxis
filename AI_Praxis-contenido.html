@@ -130,7 +130,15 @@
             transition-delay: 0.5s;
         }
         
-        /* --- ESTILOS PARA LA NUEVA SECCIÓN DE CONTENIDO --- */
+        /* --- CORRECCIÓN: MEJORA DE ACCESIBILIDAD (FOCO VISIBLE) --- */
+        /* Se añade un estilo de foco claro para quienes navegan con teclado. */
+        .tab-button:focus-visible, .accordion-button:focus-visible {
+            outline: 2px solid var(--magenta);
+            outline-offset: 2px;
+            border-radius: 4px;
+        }
+
+        /* --- CORRECCIÓN: TRANSICIONES SUAVES PARA PESTAÑAS --- */
         .tab-button {
             transition: all 0.3s ease;
             border-bottom: 4px solid transparent;
@@ -140,13 +148,29 @@
             border-bottom-color: var(--teal);
         }
         .tab-content {
-            display: none;
+            /* Se oculta con opacidad y se deshabilita para clics */
+            opacity: 0;
+            visibility: hidden;
+            height: 0;
+            overflow: hidden;
+            transform: translateY(10px);
+            transition: opacity 0.4s ease-out, transform 0.4s ease-out;
         }
         .tab-content.active {
-            display: block;
+            /* Se muestra con una transición suave */
+            opacity: 1;
+            visibility: visible;
+            height: auto;
+            overflow: visible;
+            transform: translateY(0);
+            transition-delay: 0.1s;
         }
+        
+        /* --- CORRECCIÓN: ACORDEÓN ROBUSTO CON CSS GRID --- */
+        /* Esta técnica moderna evita usar un `max-height` fijo. */
         .accordion-item {
             border-bottom: 1px solid #e5e7eb;
+            overflow: hidden; /* Evita desbordamientos durante la animación */
         }
         .accordion-button {
             width: 100%;
@@ -154,7 +178,7 @@
             background: none;
             border: none;
             cursor: pointer;
-            padding: 1rem;
+            padding: 1.25rem 1rem;
             display: flex;
             justify-content: space-between;
             align-items: center;
@@ -164,13 +188,16 @@
             background-color: #f9fafb;
         }
         .accordion-content {
-            max-height: 0;
-            overflow: hidden;
-            transition: max-height 0.5s ease-out, padding 0.5s ease-out;
+            display: grid;
+            grid-template-rows: 0fr; /* Inicia colapsado, sin altura */
+            transition: grid-template-rows 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
         }
         .accordion-item.open .accordion-content {
-            max-height: 1500px; /* Suficientemente grande para el contenido */
-            padding: 0 1rem 1.5rem 1rem;
+            grid-template-rows: 1fr; /* Se expande para ajustarse al contenido interior */
+        }
+        /* Contenedor interno necesario para que la animación grid funcione correctamente */
+        .accordion-content > div {
+             overflow: hidden;
         }
         .accordion-icon {
             transition: transform 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
@@ -182,453 +209,337 @@
 </head>
 <body class="antialiased">
     
-    <!-- Slide 1: Título -->
-    <section id="slide-1" class="slide animated-gradient-teal text-white text-center">
-        <div class="magenta-sparkle-detail"></div>
-        <div class="slide-content stagger-1">
-            <h1 class="text-5xl md:text-7xl font-black uppercase tracking-wider" style="text-shadow: 3px 3px 15px rgba(0,0,0,0.3);">AI PRAXIS</h1>
-             <h2 class="text-2xl md:text-3xl font-light mt-4 text-amber-emphasis">Ciencia, Clínica y Gestión Médica Inteligente</h2>
-        </div>
-        <div class="slide-content stagger-3 mt-12 border-t-2 border-magenta-sparkle pt-6 max-w-3xl mx-auto">
-             <div class="flex justify-center items-center space-x-8 text-lg">
-                <span><i class="fas fa-clock mr-2 text-amber-emphasis"></i>28 horas + 90 min</span>
-                <span><i class="fas fa-chalkboard-teacher mr-2 text-amber-emphasis"></i>Presencial o Virtual</span>
-                <span><i class="fas fa-users mr-2 text-amber-emphasis"></i>Profesionales de la Salud</span>
+    <!-- CORRECCIÓN: Se añade la etiqueta <main> para mejorar la semántica del HTML. -->
+    <main>
+        <!-- Slide 1: Título -->
+        <section id="slide-1" class="slide animated-gradient-teal text-white text-center">
+            <div class="magenta-sparkle-detail"></div>
+            <div class="slide-content stagger-1">
+                <h1 class="text-5xl md:text-7xl font-black uppercase tracking-wider" style="text-shadow: 3px 3px 15px rgba(0,0,0,0.3);">AI PRAXIS</h1>
+                 <h2 class="text-2xl md:text-3xl font-light mt-4 text-amber-emphasis">Ciencia, Clínica y Gestión Médica Inteligente</h2>
             </div>
-        </div>
-    </section>
-
-    <!-- Slide 2: Propuesta de Valor -->
-    <section id="slide-2" class="slide animated-gradient-light">
-        <div class="magenta-sparkle-detail"></div>
-        <div class="max-w-5xl mx-auto text-center">
-            <h2 class="section-title text-teal-transformative mb-12 slide-content stagger-1">Propuesta de Valor</h2>
-            <p class="text-xl mb-12 max-w-3xl mx-auto text-gray-600 leading-relaxed slide-content stagger-2">Convertir la Inteligencia Artificial en un <strong>aliado estratégico</strong>. Este entrenamiento intensivo es una formación práctica donde cada participante construirá una solución real y de alto valor para su quehacer diario.</p>
-            <div class="grid md:grid-cols-3 gap-8">
-                <div class="card text-left slide-content stagger-2">
-                    <h3 class="text-xl font-bold text-teal-transformative mb-3">Práctica Clínica</h3>
-                    <p class="text-gray-700 leading-relaxed">Fortalece la toma de decisiones, optimiza diagnósticos y personaliza el cuidado del paciente con herramientas de IA de vanguardia.</p>
-                </div>
-                <div class="card text-left slide-content stagger-3">
-                    <h3 class="text-xl font-bold text-teal-transformative mb-3">Labor Investigativa</h3>
-                    <p class="text-gray-700 leading-relaxed">Acelera la búsqueda de evidencia, genera hipótesis innovadoras y redacta publicaciones científicas con un rigor y velocidad sin precedentes.</p>
-                </div>
-                <div class="card text-left slide-content stagger-4">
-                    <h3 class="text-xl font-bold text-teal-transformative mb-3">Gestión y Liderazgo</h3>
-                    <p class="text-gray-700 leading-relaxed">Automatiza procesos administrativos, optimiza la gestión de equipos y libera recursos para enfocarlos en el crecimiento estratégico.</p>
+            <div class="slide-content stagger-3 mt-12 border-t-2 border-magenta-sparkle pt-6 max-w-3xl mx-auto">
+                 <div class="flex flex-wrap justify-center items-center gap-x-8 gap-y-4 text-lg">
+                    <span><i class="fas fa-clock mr-2 text-amber-emphasis"></i>28 horas + 90 min</span>
+                    <span><i class="fas fa-chalkboard-teacher mr-2 text-amber-emphasis"></i>Presencial o Virtual</span>
+                    <span><i class="fas fa-users mr-2 text-amber-emphasis"></i>Profesionales de la Salud</span>
                 </div>
             </div>
-        </div>
-    </section>
+        </section>
 
-    <!-- Slide 3: Contenido del Programa -->
-    <section id="slide-3" class="slide animated-gradient-light">
-        <div class="magenta-sparkle-detail"></div>
-        <div class="max-w-6xl w-full mx-auto text-left slide-content stagger-1">
-            <h2 class="section-title text-teal-transformative mb-12 text-center">Contenido del Programa</h2>
-            <div class="card w-full">
-                <!-- Pestañas de Navegación -->
-                <div class="flex justify-center border-b mb-8" role="tablist" aria-label="Contenido del Programa">
-                    <button class="tab-button text-xl font-bold py-4 px-6" role="tab" aria-selected="true" aria-controls="tab-plan" id="btn-plan">Plan de Estudios</button>
-                    <button class="tab-button text-xl font-bold py-4 px-6" role="tab" aria-selected="false" aria-controls="tab-objetivos" id="btn-objetivos">Objetivos y Metodología</button>
-                    <button class="tab-button text-xl font-bold py-4 px-6" role="tab" aria-selected="false" aria-controls="tab-proyecto" id="btn-proyecto">Proyecto Final</button>
-                </div>
-
-                <!-- Contenido de las Pestañas -->
-                <div id="tab-plan" class="tab-content" role="tabpanel" aria-labelledby="btn-plan">
-                    <div id="accordion-container" class="space-y-2">
-                        <!-- Módulos generados dinámicamente -->
+        <!-- Slide 2: Propuesta de Valor -->
+        <section id="slide-2" class="slide animated-gradient-light">
+            <div class="magenta-sparkle-detail"></div>
+            <div class="max-w-5xl mx-auto text-center">
+                <h2 class="section-title text-teal-transformative mb-12 slide-content stagger-1">Propuesta de Valor</h2>
+                <p class="text-xl mb-12 max-w-3xl mx-auto text-gray-600 leading-relaxed slide-content stagger-2">Convertir la Inteligencia Artificial en un <strong>aliado estratégico</strong>. Este entrenamiento intensivo es una formación práctica donde cada participante construirá una solución real y de alto valor para su quehacer diario.</p>
+                <div class="grid md:grid-cols-3 gap-8">
+                    <div class="card text-left slide-content stagger-2">
+                        <h3 class="text-xl font-bold text-teal-transformative mb-3">Práctica Clínica</h3>
+                        <p class="text-gray-700 leading-relaxed">Fortalece la toma de decisiones, optimiza diagnósticos y personaliza el cuidado del paciente con herramientas de IA de vanguardia.</p>
                     </div>
-                </div>
-                
-                <div id="tab-objetivos" class="tab-content" role="tabpanel" aria-labelledby="btn-objetivos">
-                    <!-- ... Contenido Objetivos y Metodología ... -->
-                </div>
-
-                <div id="tab-proyecto" class="tab-content" role="tabpanel" aria-labelledby="btn-proyecto">
-                   <!-- ... Contenido Proyecto Final ... -->
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Slide 4: Ruta de Victorias -->
-    <section id="slide-4" class="slide dark-texture text-white">
-        <div class="magenta-sparkle-detail"></div>
-        <canvas id="particle-canvas"></canvas>
-        <div class="max-w-4xl mx-auto text-center z-10">
-            <h2 class="section-title text-white mb-16 slide-content stagger-1">Su Ruta de Victorias</h2>
-            <div class="space-y-8 text-left">
-                 <div class="flex items-start slide-content stagger-1">
-                    <div class="text-3xl font-black text-amber-emphasis mr-6">01.</div>
-                    <div>
-                        <h3 class="text-2xl font-bold mb-2">De Cero a Usuario Estratégico</h3>
-                        <p class="text-gray-300 leading-relaxed">Dominará las plataformas líderes y las aplicará con confianza para resolver sus primeros desafíos profesionales.</p>
+                    <div class="card text-left slide-content stagger-3">
+                        <h3 class="text-xl font-bold text-teal-transformative mb-3">Labor Investigativa</h3>
+                        <p class="text-gray-700 leading-relaxed">Acelera la búsqueda de evidencia, genera hipótesis innovadoras y redacta publicaciones científicas con un rigor y velocidad sin precedentes.</p>
                     </div>
-                </div>
-                <div class="flex items-start slide-content stagger-2">
-                    <div class="text-3xl font-black text-amber-emphasis mr-6">02.</div>
-                    <div>
-                        <h3 class="text-2xl font-bold mb-2">Arquitecto de Soluciones</h3>
-                        <p class="text-gray-300 leading-relaxed">Diseñará "prompts" de alta precisión para acelerar análisis y potenciar la calidad de sus resultados.</p>
-                    </div>
-                </div>
-                <div class="flex items-start slide-content stagger-3">
-                    <div class="text-3xl font-black text-amber-emphasis mr-6">03.</div>
-                    <div>
-                        <h3 class="text-2xl font-bold mb-2">De Usuario a Creador</h3>
-                        <p class="text-gray-300 leading-relaxed">Construirá agentes digitales que automaticen la gestión de su práctica y le devuelvan el control de su tiempo.</p>
-                    </div>
-                </div>
-                 <div class="flex items-start slide-content stagger-4">
-                    <div class="text-3xl font-black text-amber-emphasis mr-6">04.</div>
-                    <div>
-                        <h3 class="text-2xl font-bold mb-2">Líder con Visión de Futuro</h3>
-                        <p class="text-gray-300 leading-relaxed">Desarrollará la visión estratégica para liderar con IA, anticipando las tendencias que definirán el futuro de su sector.</p>
+                    <div class="card text-left slide-content stagger-4">
+                        <h3 class="text-xl font-bold text-teal-transformative mb-3">Gestión y Liderazgo</h3>
+                        <p class="text-gray-700 leading-relaxed">Automatiza procesos administrativos, optimiza la gestión de equipos y libera recursos para enfocarlos en el crecimiento estratégico.</p>
                     </div>
                 </div>
             </div>
-        </div>
-    </section>
-    
-    <!-- Slide 5: Cierre y Contacto -->
-    <section id="slide-5" class="slide animated-gradient-teal text-white text-center">
-        <div class="magenta-sparkle-detail"></div>
-        <div class="slide-content stagger-1">
-            <h2 class="text-4xl font-bold mb-6 leading-tight">Esta es una invitación a posicionarse en la vanguardia de la medicina moderna.</h2>
-        </div>
-        <div class="slide-content stagger-2">
-            <p class="text-xl text-gray-200 mb-10 leading-relaxed">Quedo a su entera disposición para conversar sobre esta propuesta y definir el mejor camino para implementar este programa de élite.</p>
-        </div>
-        <div class="slide-content stagger-3">
-            <a href="mailto:8a.anamaria@gmail.com?subject=Interés en el Programa AI Praxis" class="bg-amber-emphasis text-gray-900 font-bold py-4 px-10 rounded-full text-xl hover:bg-amber-400 transition-all duration-300 transform hover:scale-105 inline-block">Contactar para Inscribirse</a>
-        </div>
-    </section>
+        </section>
+
+        <!-- Slide 3: Contenido del Programa -->
+        <section id="slide-3" class="slide animated-gradient-light">
+            <div class="magenta-sparkle-detail"></div>
+            <div class="max-w-6xl w-full mx-auto text-left slide-content stagger-1">
+                <h2 class="section-title text-teal-transformative mb-12 text-center">Contenido del Programa</h2>
+                <div class="card w-full">
+                    <!-- Pestañas de Navegación -->
+                    <div class="flex flex-wrap justify-center border-b mb-8" role="tablist" aria-label="Contenido del Programa">
+                        <button class="tab-button text-lg md:text-xl font-bold py-4 px-6" role="tab" aria-selected="true" aria-controls="tab-plan" id="btn-plan">Plan de Estudios</button>
+                        <button class="tab-button text-lg md:text-xl font-bold py-4 px-6" role="tab" aria-selected="false" aria-controls="tab-objetivos" id="btn-objetivos">Objetivos y Metodología</button>
+                        <button class="tab-button text-lg md:text-xl font-bold py-4 px-6" role="tab" aria-selected="false" aria-controls="tab-proyecto" id="btn-proyecto">Proyecto Final</button>
+                    </div>
+
+                    <!-- Contenido de las Pestañas -->
+                    <div id="tab-plan" class="tab-content" role="tabpanel" aria-labelledby="btn-plan">
+                        <div id="accordion-container">
+                            <!-- Módulos generados dinámicamente -->
+                        </div>
+                    </div>
+                    
+                    <div id="tab-objetivos" class="tab-content" role="tabpanel" aria-labelledby="btn-objetivos">
+                        <!-- Contenido Objetivos y Metodología (inyectado por JS) -->
+                    </div>
+
+                    <div id="tab-proyecto" class="tab-content" role="tabpanel" aria-labelledby="btn-proyecto">
+                       <!-- Contenido Proyecto Final (inyectado por JS) -->
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Slide 4: Ruta de Victorias -->
+        <section id="slide-4" class="slide dark-texture text-white">
+            <div class="magenta-sparkle-detail"></div>
+            <canvas id="particle-canvas"></canvas>
+            <div class="max-w-4xl mx-auto text-center z-10">
+                <h2 class="section-title text-white mb-16 slide-content stagger-1">Su Ruta de Victorias</h2>
+                <div class="space-y-8 text-left">
+                     <div class="flex items-start slide-content stagger-1">
+                        <div class="text-3xl font-black text-amber-emphasis mr-6">01.</div>
+                        <div>
+                            <h3 class="text-2xl font-bold mb-2">De Cero a Usuario Estratégico</h3>
+                            <p class="text-gray-300 leading-relaxed">Dominará las plataformas líderes y las aplicará con confianza para resolver sus primeros desafíos profesionales.</p>
+                        </div>
+                    </div>
+                    <div class="flex items-start slide-content stagger-2">
+                        <div class="text-3xl font-black text-amber-emphasis mr-6">02.</div>
+                        <div>
+                            <h3 class="text-2xl font-bold mb-2">Arquitecto de Soluciones</h3>
+                            <p class="text-gray-300 leading-relaxed">Diseñará "prompts" de alta precisión para acelerar análisis y potenciar la calidad de sus resultados.</p>
+                        </div>
+                    </div>
+                    <div class="flex items-start slide-content stagger-3">
+                        <div class="text-3xl font-black text-amber-emphasis mr-6">03.</div>
+                        <div>
+                            <h3 class="text-2xl font-bold mb-2">De Usuario a Creador</h3>
+                            <p class="text-gray-300 leading-relaxed">Construirá agentes digitales que automaticen la gestión de su práctica y le devuelvan el control de su tiempo.</p>
+                        </div>
+                    </div>
+                     <div class="flex items-start slide-content stagger-4">
+                        <div class="text-3xl font-black text-amber-emphasis mr-6">04.</div>
+                        <div>
+                            <h3 class="text-2xl font-bold mb-2">Líder con Visión de Futuro</h3>
+                            <p class="text-gray-300 leading-relaxed">Desarrollará la visión estratégica para liderar con IA, anticipando las tendencias que definirán el futuro de su sector.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <!-- Slide 5: Cierre y Contacto -->
+        <section id="slide-5" class="slide animated-gradient-teal text-white text-center">
+            <div class="magenta-sparkle-detail"></div>
+            <div class="slide-content stagger-1">
+                <h2 class="text-4xl font-bold mb-6 leading-tight">Esta es una invitación a posicionarse en la vanguardia de la medicina moderna.</h2>
+            </div>
+            <div class="slide-content stagger-2">
+                <p class="text-xl text-gray-200 mb-10 leading-relaxed">Quedo a su entera disposición para conversar sobre esta propuesta y definir el mejor camino para implementar este programa de élite.</p>
+            </div>
+            <div class="slide-content stagger-3">
+                <a href="mailto:8a.anamaria@gmail.com?subject=Interés en el Programa AI Praxis" class="bg-amber-emphasis text-gray-900 font-bold py-4 px-10 rounded-full text-xl hover:bg-amber-400 transition-all duration-300 transform hover:scale-105 inline-block">Contactar para Inscribirse</a>
+            </div>
+        </section>
+    </main>
 
     <!-- Botones de Navegación -->
     <div class="fixed bottom-5 right-5 z-50 flex gap-2">
-        <button id="prevBtn" aria-label="Diapositiva anterior" class="bg-black/20 text-white rounded-full w-12 h-12 text-2xl hover:bg-black/40 transition backdrop-blur-sm">&#9650;</button>
-        <button id="nextBtn" aria-label="Siguiente diapositiva" class="bg-black/20 text-white rounded-full w-12 h-12 text-2xl hover:bg-black/40 transition backdrop-blur-sm">&#9660;</button>
+        <button id="prevBtn" aria-label="Diapositiva anterior" class="bg-black/20 text-white rounded-full w-12 h-12 text-2xl hover:bg-black/40 transition backdrop-blur-sm shadow-lg">&#9650;</button>
+        <button id="nextBtn" aria-label="Siguiente diapositiva" class="bg-black/20 text-white rounded-full w-12 h-12 text-2xl hover:bg-black/40 transition backdrop-blur-sm shadow-lg">&#9660;</button>
     </div>
 
     <script>
-        document.addEventListener('DOMContentLoaded', () => {
-            
-            // --- DATOS DEL CURSO ---
-            const courseData = {
-                modules: [
-                    { 
-                        title: "Módulo 0. Nivelación de Fundamentos de IA (Pre-Work Asincrónico)", 
-                        duration: "90 minutos",
-                        objective: "Asegurar que todos los participantes lleguen a la primera sesión con un entendimiento básico de los conceptos clave de la IA.",
-                        content: [
-                            "Video: '¿Qué es la IA y cómo está transformando la medicina?'",
-                            "Lectura: 'Glosario Esencial de IA para Médicos'.",
-                            "Lectura: 'Consideraciones Éticas Iniciales en IA Médica'.",
-                            "Consideraciones básicas de ciberseguridad.",
-                            "Actividad: Cuestionario formativo online para verificar la comprensión (20 min)."
-                        ]
-                    },
-                    { 
-                        title: "Módulo 1. Fundamentos de IA para la práctica médica integral", 
-                        duration: "4 horas",
-                        content: [
-                            "Historia y evolución de la IA en salud.",
-                            "Conceptos básicos: machine learning, deep learning, NLP y visión computacional.",
-                            "Ámbitos de aplicación en medicina: diagnóstico, apoyo a la decisión clínica, predicción y pronóstico.",
-                            "Presentación de herramientas clave (ChatGPT, Gemini, Copilot) y creación de cuentas.",
-                            "El médico integral y la IA como extensión de sus capacidades.",
-                            "Ética transversal: autonomía profesional vs. dependencia tecnológica.",
-                            "Ciberseguridad transversal: principios básicos de protección de datos de salud.",
-                            "Actividad práctica: elaboración de un mapa personal de aplicaciones de IA en la práctica médica."
-                        ]
-                    },
-                    { 
-                        title: "Módulo 2. Plataformas esenciales para la práctica clínica, la investigación y la gestión", 
-                        duration: "4 horas",
-                        content: [
-                            "Revisión comparativa de plataformas clave: ChatGPT, Claude, Gemini, Perplexity, Copilot.",
-                            "Aplicaciones prácticas en la clínica: notas evolutivas, resúmenes de historias clínicas, guías terapéuticas.",
-                            "Investigación: búsqueda de literatura científica, sistematización de información, creación de abstracts.",
-                            "Gestión administrativa: informes de productividad, comunicaciones con pacientes, proyecciones básicas.",
-                            "Ética: transparencia y responsabilidad en el uso de IA.",
-                            "Ciberseguridad: anonimización de datos, buenas prácticas en uso de plataformas online.",
-                            "Actividad práctica: desarrollo de tres productos médicos con IA (nota clínica, abstract científico y reporte administrativo)."
-                        ]
-                    },
-                    { 
-                        title: "Módulo 3. Diseño de prompts aplicados a la praxis médica", 
-                        duration: "4 horas",
-                        content: [
-                            "Principios del prompting: claridad, contexto, rol y formato.",
-                            "Prompts básicos vs. avanzados (iterativos, encadenados, condicionados).",
-                            "Prompts para la práctica clínica: resúmenes de casos, guías diagnósticas, recomendaciones terapéuticas.",
-                            "Prompts para investigación: generación de hipótesis, diseño de encuestas, estructura de manuscritos.",
-                            "Prompts administrativos: comunicación con pacientes, generación de contratos, informes de gestión.",
-                            "Ética: sesgos en prompts y cómo mitigarlos.",
-                            "Ciberseguridad: manejo de información sensible en la construcción de prompts.",
-                            "Actividad práctica: construcción de un banco de 15 prompts aplicados a la práctica médica."
-                        ]
-                    },
-                    { 
-                        title: "Módulo 4. IA aplicada a investigación y publicaciones científicas", 
-                        duration: "4 horas",
-                        content: [
-                            "Búsqueda y sistematización de literatura científica con IA.",
-                            "Generación de hipótesis y modelos de investigación asistidos.",
-                            "Diseño de protocolos: objetivos, metodología y cronogramas con apoyo de IA.",
-                            "Redacción de artículos científicos bajo normas internacionales (IMRyD).",
-                            "Identificación de sesgos y validación cruzada de resultados.",
-                            "Ética: directrices COPE, uso legítimo de IA en publicaciones.",
-                            "Ciberseguridad: plataformas seguras para almacenamiento y citación.",
-                            "Actividad práctica: redacción de un mini-protocolo de investigación con apoyo de IA."
-                        ]
-                    },
-                     { 
-                        title: "Módulo 5. Aplicaciones de IA en gestión administrativa y de personal", 
-                        duration: "4 horas",
-                        content: [
-                            "Optimización de agendas médicas y tiempos de atención.",
-                            "Recordatorios automatizados y manejo de citas con IA.",
-                            "Gestión de inventarios, compras y facturación.",
-                            "Uso de IA para selección, capacitación y evaluación de personal de salud.",
-                            "Proyecciones financieras y planeación estratégica en consultorios.",
-                            "Ética: equidad y transparencia en la gestión.",
-                            "Ciberseguridad: seguridad en sistemas de información clínica y contable.",
-                            "Actividad práctica: simulación de planeación administrativa y gestión de RRHH con IA."
-                        ]
-                    },
-                    { 
-                        title: "Módulo 6. Construcción de agentes médicos digitales", 
-                        duration: "4 horas",
-                        content: [
-                            "Introducción a los agentes digitales: definición y arquitectura.",
-                            "Plataformas para el desarrollo de agentes (Custom GPTs, copilots especializados).",
-                            "Diseño de flujos conversacionales y personalización de agentes.",
-                            "Casos de uso: triage automatizado, soporte investigativo, gestión administrativa.",
-                            "Ética: limitaciones y riesgos de delegar decisiones a agentes.",
-                            "Ciberseguridad: control de accesos, auditoría y trazabilidad.",
-                            "Actividad práctica: construcción de un prototipo de agente médico digital enfocado en un caso específico."
-                        ]
-                    },
-                    { 
-                        title: "Módulo 7. Casos prácticos, tendencias y proyecto final", 
-                        duration: "4 horas",
-                        content: [
-                            "Casos de uso nacionales e internacionales de referencia.",
-                            "IA en telemedicina, genómica, imagenología y salud pública.",
-                            "Tendencias futuras: medicina personalizada, wearables inteligentes, sistemas predictivos.",
-                            "Ética: dilemas contemporáneos sobre responsabilidad, consentimiento y límites de la IA.",
-                            "Ciberseguridad: auditoría de proyectos con IA en entornos médicos.",
-                            "Actividad práctica: presentación de un proyecto integral (clínico, científico o administrativo) con criterios de ética y ciberseguridad."
-                        ]
-                    }
-                ],
-                objectives: `
-                    <div class="grid md:grid-cols-2 gap-8">
-                        <div>
-                            <h3 class="text-xl font-bold text-teal-transformative mb-4">Objetivo General</h3>
-                            <p class="text-gray-700 leading-relaxed">Brindar a los profesionales de la salud competencias técnicas, éticas y prácticas para integrar la IA en su quehacer médico, científico y administrativo, fortaleciendo la toma de decisiones, la investigación y la gestión.</p>
-                            <h3 class="text-xl font-bold text-teal-transformative mt-6 mb-4">Objetivos Específicos</h3>
-                            <ul class="list-disc pl-5 space-y-2 text-gray-700">
-                                <li>Comprender los fundamentos técnicos de la IA en salud.</li>
-                                <li>Desarrollar habilidades en el diseño y uso de prompts médicos.</li>
-                                <li>Implementar herramientas de IA para investigación y redacción científica.</li>
-                                <li>Diseñar agentes médicos digitales para asistencia clínica y administrativa.</li>
-                                <li>Aplicar la IA a procesos de gestión y de personal.</li>
-                                <li>Incorporar criterios de ética y ciberseguridad.</li>
-                                <li>Elaborar un proyecto final práctico e integral.</li>
-                            </ul>
-                        </div>
-                        <div>
-                            <h3 class="text-xl font-bold text-teal-transformative mb-4">Metodología</h3>
-                            <p class="text-gray-700 mb-4">Un enfoque eminentemente práctico y participativo:</p>
-                             <div class="space-y-3">
-                                <div class="flex items-center"><div class="w-24 text-center"><span class="text-2xl font-bold text-amber-emphasis">20%</span></div><div class="flex-1 pl-4 border-l-4 border-amber-emphasis"><strong>Exposiciones Magistrales</strong><br><span class="text-sm">Conceptos clave y tendencias.</span></div></div>
-                                <div class="flex items-center"><div class="w-24 text-center"><span class="text-2xl font-bold text-teal-transformative">40%</span></div><div class="flex-1 pl-4 border-l-4 border-teal-transformative"><strong>Talleres Prácticos</strong><br><span class="text-sm">Laboratorios de aplicación directa.</span></div></div>
-                                <div class="flex items-center"><div class="w-24 text-center"><span class="text-2xl font-bold text-magenta">30%</span></div><div class="flex-1 pl-4 border-l-4 border-magenta"><strong>Proyectos y Co-creación</strong><br><span class="text-sm">Desarrollo de soluciones reales.</span></div></div>
-                                <div class="flex items-center"><div class="w-24 text-center"><span class="text-2xl font-bold text-gray-500">10%</span></div><div class="flex-1 pl-4 border-l-4 border-gray-500"><strong>Debates Éticos</strong><br><span class="text-sm">Análisis de casos y dilemas.</span></div></div>
-                            </div>
-                        </div>
-                    </div>
-                `,
-                finalProject: `
-                    <h3 class="text-xl font-bold text-teal-transformative mb-3">Descripción General</h3>
-                    <p class="text-gray-700 mb-6 leading-relaxed">El proyecto final es la integración práctica de los aprendizajes. Cada participante o grupo diseñará y presentará una solución basada en IA que responda a un problema real en el ámbito clínico, investigativo o administrativo, asegurando que sea aplicable, éticamente responsable y segura.</p>
-                    <div class="grid md:grid-cols-3 gap-6 text-center">
-                        <div class="p-4 bg-gray-50 rounded-lg border"><h4 class="font-bold text-teal-transformative">Clínica</h4><p class="text-sm text-gray-600">Asistentes digitales, flujos de prompts para notas clínicas, herramientas predictivas.</p></div>
-                        <div class="p-4 bg-gray-50 rounded-lg border"><h4 class="font-bold text-teal-transformative">Investigación</h4><p class="text-sm text-gray-600">Sistemas de revisión de literatura, prototipos de redacción, asistentes de diseño metodológico.</p></div>
-                        <div class="p-4 bg-gray-50 rounded-lg border"><h4 class="font-bold text-teal-transformative">Gestión</h4><p class="text-sm text-gray-600">Agentes para gestión de citas, optimización de inventarios, modelos de apoyo a RRHH.</p></div>
-                    </div>
-                     <h3 class="text-xl font-bold text-teal-transformative mt-6 mb-3">Criterios de Evaluación</h3>
-                     <p class="text-gray-700 mb-4">El proyecto se evaluará en base a:</p>
-                     <ul class="list-disc pl-5 space-y-2 text-gray-700">
-                        <li><strong>Relevancia del Problema Abordado (20%):</strong> Impacto y pertinencia en el contexto médico.</li>
-                        <li><strong>Aplicación Técnica de IA (25%):</strong> Uso correcto y eficiente de las herramientas vistas.</li>
-                        <li><strong>Consideraciones Éticas y de Ciberseguridad (20%):</strong> Integración transversal de estos pilares.</li>
-                        <li><strong>Innovación y Creatividad (15%):</strong> Originalidad y valor diferencial de la solución.</li>
-                        <li><strong>Calidad del Documento y Presentación (20%):</strong> Claridad, rigor y capacidad de comunicación.</li>
-                     </ul>
-                `
-            };
-
-            // --- INICIALIZACIÓN DE COMPONENTES ---
-            
-            function initTabs() {
-                const tabContainer = document.querySelector('[role="tablist"]');
-                const tabButtons = tabContainer.querySelectorAll('[role="tab"]');
-                const tabContents = document.querySelector('.card').querySelectorAll('[role="tabpanel"]');
+        // --- CORRECCIÓN: Se encapsula todo el script en una IIFE para evitar variables globales.
+        (() => {
+            document.addEventListener('DOMContentLoaded', () => {
                 
-                // Show first tab by default
-                tabButtons[0].setAttribute('aria-selected', 'true');
-                document.getElementById(tabButtons[0].getAttribute('aria-controls')).classList.add('active');
+                // --- DATOS DEL CURSO ---
+                const courseData = {
+                    modules: [
+                        { title: "Módulo 0. Nivelación de Fundamentos de IA (Pre-Work Asincrónico)", duration: "90 minutos", objective: "Asegurar que todos los participantes lleguen a la primera sesión con un entendimiento básico de los conceptos clave de la IA.", content: ["Video: '¿Qué es la IA y cómo está transformando la medicina?'", "Lectura: 'Glosario Esencial de IA para Médicos'.", "Lectura: 'Consideraciones Éticas Iniciales en IA Médica'.", "Consideraciones básicas de ciberseguridad.", "Actividad: Cuestionario formativo online para verificar la comprensión (20 min)."] },
+                        { title: "Módulo 1. Fundamentos de IA para la práctica médica integral", duration: "4 horas", content: ["Historia y evolución de la IA en salud.", "Conceptos básicos: machine learning, deep learning, NLP y visión computacional.", "Ámbitos de aplicación en medicina: diagnóstico, apoyo a la decisión clínica, predicción y pronóstico.", "Presentación de herramientas clave (ChatGPT, Gemini, Copilot) y creación de cuentas.", "El médico integral y la IA como extensión de sus capacidades.", "Ética transversal: autonomía profesional vs. dependencia tecnológica.", "Ciberseguridad transversal: principios básicos de protección de datos de salud.", "Actividad práctica: elaboración de un mapa personal de aplicaciones de IA en la práctica médica."] },
+                        { title: "Módulo 2. Plataformas esenciales para la práctica clínica, la investigación y la gestión", duration: "4 horas", content: ["Revisión comparativa de plataformas clave: ChatGPT, Claude, Gemini, Perplexity, Copilot.", "Aplicaciones prácticas en la clínica: notas evolutivas, resúmenes de historias clínicas, guías terapéuticas.", "Investigación: búsqueda de literatura científica, sistematización de información, creación de abstracts.", "Gestión administrativa: informes de productividad, comunicaciones con pacientes, proyecciones básicas.", "Ética: transparencia y responsabilidad en el uso de IA.", "Ciberseguridad: anonimización de datos, buenas prácticas en uso de plataformas online.", "Actividad práctica: desarrollo de tres productos médicos con IA (nota clínica, abstract científico y reporte administrativo)."] },
+                        { title: "Módulo 3. Diseño de prompts aplicados a la praxis médica", duration: "4 horas", content: ["Principios del prompting: claridad, contexto, rol y formato.", "Prompts básicos vs. avanzados (iterativos, encadenados, condicionados).", "Prompts para la práctica clínica: resúmenes de casos, guías diagnósticas, recomendaciones terapéuticas.", "Prompts para investigación: generación de hipótesis, diseño de encuestas, estructura de manuscritos.", "Prompts administrativos: comunicación con pacientes, generación de contratos, informes de gestión.", "Ética: sesgos en prompts y cómo mitigarlos.", "Ciberseguridad: manejo de información sensible en la construcción de prompts.", "Actividad práctica: construcción de un banco de 15 prompts aplicados a la práctica médica."] },
+                        { title: "Módulo 4. IA aplicada a investigación y publicaciones científicas", duration: "4 horas", content: ["Búsqueda y sistematización de literatura científica con IA.", "Generación de hipótesis y modelos de investigación asistidos.", "Diseño de protocolos: objetivos, metodología y cronogramas con apoyo de IA.", "Redacción de artículos científicos bajo normas internacionales (IMRyD).", "Identificación de sesgos y validación cruzada de resultados.", "Ética: directrices COPE, uso legítimo de IA en publicaciones.", "Ciberseguridad: plataformas seguras para almacenamiento y citación.", "Actividad práctica: redacción de un mini-protocolo de investigación con apoyo de IA."] },
+                        { title: "Módulo 5. Aplicaciones de IA en gestión administrativa y de personal", duration: "4 horas", content: ["Optimización de agendas médicas y tiempos de atención.", "Recordatorios automatizados y manejo de citas con IA.", "Gestión de inventarios, compras y facturación.", "Uso de IA para selección, capacitación y evaluación de personal de salud.", "Proyecciones financieras y planeación estratégica en consultorios.", "Ética: equidad y transparencia en la gestión.", "Ciberseguridad: seguridad en sistemas de información clínica y contable.", "Actividad práctica: simulación de planeación administrativa y gestión de RRHH con IA."] },
+                        { title: "Módulo 6. Construcción de agentes médicos digitales", duration: "4 horas", content: ["Introducción a los agentes digitales: definición y arquitectura.", "Plataformas para el desarrollo de agentes (Custom GPTs, copilots especializados).", "Diseño de flujos conversacionales y personalización de agentes.", "Casos de uso: triage automatizado, soporte investigativo, gestión administrativa.", "Ética: limitaciones y riesgos de delegar decisiones a agentes.", "Ciberseguridad: control de accesos, auditoría y trazabilidad.", "Actividad práctica: construcción de un prototipo de agente médico digital enfocado en un caso específico."] },
+                        { title: "Módulo 7. Casos prácticos, tendencias y proyecto final", duration: "4 horas", content: ["Casos de uso nacionales e internacionales de referencia.", "IA en telemedicina, genómica, imagenología y salud pública.", "Tendencias futuras: medicina personalizada, wearables inteligentes, sistemas predictivos.", "Ética: dilemas contemporáneos sobre responsabilidad, consentimiento y límites de la IA.", "Ciberseguridad: auditoría de proyectos con IA en entornos médicos.", "Actividad práctica: presentación de un proyecto integral (clínico, científico o administrativo) con criterios de ética y ciberseguridad."] }
+                    ],
+                    objectives: `<div class="grid md:grid-cols-2 gap-8"><div><h3 class="text-xl font-bold text-teal-transformative mb-4">Objetivo General</h3><p class="text-gray-700 leading-relaxed">Brindar a los profesionales de la salud competencias técnicas, éticas y prácticas para integrar la IA en su quehacer médico, científico y administrativo, fortaleciendo la toma de decisiones, la investigación y la gestión.</p><h3 class="text-xl font-bold text-teal-transformative mt-6 mb-4">Objetivos Específicos</h3><ul class="list-disc pl-5 space-y-2 text-gray-700"><li>Comprender los fundamentos técnicos de la IA en salud.</li><li>Desarrollar habilidades en el diseño y uso de prompts médicos.</li><li>Implementar herramientas de IA para investigación y redacción científica.</li><li>Diseñar agentes médicos digitales para asistencia clínica y administrativa.</li><li>Aplicar la IA a procesos de gestión y de personal.</li><li>Incorporar criterios de ética y ciberseguridad.</li><li>Elaborar un proyecto final práctico e integral.</li></ul></div><div><h3 class="text-xl font-bold text-teal-transformative mb-4">Metodología</h3><p class="text-gray-700 mb-4">Un enfoque eminentemente práctico y participativo:</p><div class="space-y-3"><div class="flex items-center"><div class="w-24 text-center"><span class="text-2xl font-bold text-amber-emphasis">20%</span></div><div class="flex-1 pl-4 border-l-4 border-amber-emphasis"><strong>Exposiciones Magistrales</strong><br><span class="text-sm">Conceptos clave y tendencias.</span></div></div><div class="flex items-center"><div class="w-24 text-center"><span class="text-2xl font-bold text-teal-transformative">40%</span></div><div class="flex-1 pl-4 border-l-4 border-teal-transformative"><strong>Talleres Prácticos</strong><br><span class="text-sm">Laboratorios de aplicación directa.</span></div></div><div class="flex items-center"><div class="w-24 text-center"><span class="text-2xl font-bold text-magenta">30%</span></div><div class="flex-1 pl-4 border-l-4 border-magenta"><strong>Proyectos y Co-creación</strong><br><span class="text-sm">Desarrollo de soluciones reales.</span></div></div><div class="flex items-center"><div class="w-24 text-center"><span class="text-2xl font-bold text-gray-500">10%</span></div><div class="flex-1 pl-4 border-l-4 border-gray-500"><strong>Debates Éticos</strong><br><span class="text-sm">Análisis de casos y dilemas.</span></div></div></div></div></div>`,
+                    finalProject: `<h3 class="text-xl font-bold text-teal-transformative mb-3">Descripción General</h3><p class="text-gray-700 mb-6 leading-relaxed">El proyecto final es la integración práctica de los aprendizajes. Cada participante o grupo diseñará y presentará una solución basada en IA que responda a un problema real en el ámbito clínico, investigativo o administrativo, asegurando que sea aplicable, éticamente responsable y segura.</p><div class="grid md:grid-cols-3 gap-6 text-center"><div class="p-4 bg-gray-50 rounded-lg border"><h4 class="font-bold text-teal-transformative">Clínica</h4><p class="text-sm text-gray-600">Asistentes digitales, flujos de prompts para notas clínicas, herramientas predictivas.</p></div><div class="p-4 bg-gray-50 rounded-lg border"><h4 class="font-bold text-teal-transformative">Investigación</h4><p class="text-sm text-gray-600">Sistemas de revisión de literatura, prototipos de redacción, asistentes de diseño metodológico.</p></div><div class="p-4 bg-gray-50 rounded-lg border"><h4 class="font-bold text-teal-transformative">Gestión</h4><p class="text-sm text-gray-600">Agentes para gestión de citas, optimización de inventarios, modelos de apoyo a RRHH.</p></div></div><h3 class="text-xl font-bold text-teal-transformative mt-6 mb-3">Criterios de Evaluación</h3><p class="text-gray-700 mb-4">El proyecto se evaluará en base a:</p><ul class="list-disc pl-5 space-y-2 text-gray-700"><li><strong>Relevancia del Problema Abordado (20%):</strong> Impacto y pertinencia en el contexto médico.</li><li><strong>Aplicación Técnica de IA (25%):</strong> Uso correcto y eficiente de las herramientas vistas.</li><li><strong>Consideraciones Éticas y de Ciberseguridad (20%):</strong> Integración transversal de estos pilares.</li><li><strong>Innovación y Creatividad (15%):</strong> Originalidad y valor diferencial de la solución.</li><li><strong>Calidad del Documento y Presentación (20%):</strong> Claridad, rigor y capacidad de comunicación.</li></ul>`
+                };
 
-                tabContainer.addEventListener('click', (e) => {
-                    const clickedTab = e.target.closest('button');
-                    if (!clickedTab) return;
+                let currentSlideIndex = 0;
 
-                    e.preventDefault();
+                // --- INICIALIZACIÓN DE COMPONENTES ---
+                
+                function initTabs() {
+                    const tabContainer = document.querySelector('[role="tablist"]');
+                    if (!tabContainer) return;
+
+                    const tabButtons = tabContainer.querySelectorAll('[role="tab"]');
+                    const tabContents = document.querySelector('#slide-3 .card').querySelectorAll('[role="tabpanel"]');
                     
-                    tabButtons.forEach(button => button.setAttribute('aria-selected', 'false'));
-                    tabContents.forEach(content => content.classList.remove('active'));
+                    // Mostrar la primera pestaña por defecto
+                    if (tabButtons.length > 0 && tabContents.length > 0) {
+                        tabButtons[0].setAttribute('aria-selected', 'true');
+                        tabContents[0].classList.add('active');
+                    }
 
-                    clickedTab.setAttribute('aria-selected', 'true');
-                    document.getElementById(clickedTab.getAttribute('aria-controls')).classList.add('active');
-                });
-            }
+                    tabContainer.addEventListener('click', (e) => {
+                        const clickedTab = e.target.closest('button');
+                        if (!clickedTab) return;
 
-            function initAccordion() {
-                const accordionContainer = document.getElementById('accordion-container');
-                accordionContainer.innerHTML = courseData.modules.map((modulo, index) => {
-                    const contentList = modulo.content.map(item => `<li>${item}</li>`).join('');
-                    return `
-                        <div class="accordion-item">
-                            <h3 class="text-lg font-bold text-teal-transformative">
-                                <button class="accordion-button" aria-expanded="false" aria-controls="accordion-content-${index}" id="accordion-header-${index}">
-                                    <span>${modulo.title}</span>
-                                    <i class="fas fa-chevron-down accordion-icon text-teal-transformative"></i>
-                                </button>
-                            </h3>
-                            <div class="accordion-content text-gray-700" id="accordion-content-${index}" role="region" aria-labelledby="accordion-header-${index}">
-                                <div class="px-4">
-                                    <p class="font-bold">Duración: ${modulo.duration}.</p>
-                                    ${modulo.objective ? `<p class="mb-2"><strong>Objetivo:</strong> ${modulo.objective}</p>` : ''}
-                                    <ul class="list-disc pl-5 space-y-1 mt-2">${contentList}</ul>
+                        e.preventDefault();
+                        
+                        // Ocultar todas las pestañas y contenidos
+                        tabButtons.forEach(button => button.setAttribute('aria-selected', 'false'));
+                        tabContents.forEach(content => content.classList.remove('active'));
+
+                        // Mostrar la pestaña y contenido seleccionados
+                        clickedTab.setAttribute('aria-selected', 'true');
+                        const contentId = clickedTab.getAttribute('aria-controls');
+                        document.getElementById(contentId)?.classList.add('active');
+                    });
+                }
+
+                function initAccordion() {
+                    const accordionContainer = document.getElementById('accordion-container');
+                    if (!accordionContainer) return;
+
+                    accordionContainer.innerHTML = courseData.modules.map((modulo, index) => {
+                        const contentList = modulo.content.map(item => `<li>${item}</li>`).join('');
+                        // CORRECCIÓN: Se añade el <div> interior para la animación con CSS Grid.
+                        return `
+                            <div class="accordion-item">
+                                <h3 class="text-lg font-bold text-teal-transformative">
+                                    <button class="accordion-button" aria-expanded="false" aria-controls="accordion-content-${index}" id="accordion-header-${index}">
+                                        <span class="pr-4">${modulo.title}</span>
+                                        <i class="fas fa-chevron-down accordion-icon text-teal-transformative flex-shrink-0"></i>
+                                    </button>
+                                </h3>
+                                <div class="accordion-content text-gray-700" id="accordion-content-${index}" role="region" aria-labelledby="accordion-header-${index}">
+                                    <div>
+                                        <div class="px-4 pb-5 pt-2">
+                                            <p class="font-bold">Duración: ${modulo.duration}.</p>
+                                            ${modulo.objective ? `<p class="mb-2"><strong>Objetivo:</strong> ${modulo.objective}</p>` : ''}
+                                            <ul class="list-disc pl-5 space-y-1 mt-2">${contentList}</ul>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                    `;
-                }).join('');
+                        `;
+                    }).join('');
 
-                accordionContainer.addEventListener('click', (e) => {
-                    const button = e.target.closest('.accordion-button');
-                    if(button) {
-                        const item = button.closest('.accordion-item');
-                        const isExpanded = button.getAttribute('aria-expanded') === 'true';
-                        
-                        item.classList.toggle('open');
-                        button.setAttribute('aria-expanded', !isExpanded);
-                    }
-                });
-            }
-            
-            function initContent() {
-                document.getElementById('tab-objetivos').innerHTML = courseData.objectives;
-                document.getElementById('tab-proyecto').innerHTML = courseData.finalProject;
-                initAccordion();
-                initTabs();
-            }
+                    accordionContainer.addEventListener('click', (e) => {
+                        const button = e.target.closest('.accordion-button');
+                        if (button) {
+                            const item = button.closest('.accordion-item');
+                            const isExpanded = button.getAttribute('aria-expanded') === 'true';
 
-            function initScrollObserver() {
-                const slides = document.querySelectorAll('.slide');
-                const observer = new IntersectionObserver((entries) => {
-                    entries.forEach(entry => {
-                        if (entry.isIntersecting) {
-                            entry.target.classList.add('is-visible');
-                            window.currentSlideIndex = Array.from(slides).indexOf(entry.target);
-                        } else {
-                            entry.target.classList.remove('is-visible');
+                            // Opcional: Cerrar otros acordeones al abrir uno nuevo
+                            // accordionContainer.querySelectorAll('.accordion-item').forEach(otherItem => {
+                            //     if (otherItem !== item) {
+                            //         otherItem.classList.remove('open');
+                            //         otherItem.querySelector('.accordion-button').setAttribute('aria-expanded', 'false');
+                            //     }
+                            // });
+                            
+                            item.classList.toggle('open');
+                            button.setAttribute('aria-expanded', String(!isExpanded));
                         }
                     });
-                }, { root: null, threshold: 0.5 });
-                slides.forEach(slide => observer.observe(slide));
-            }
-
-            function initNavigation() {
-                const prevBtn = document.getElementById('prevBtn');
-                const nextBtn = document.getElementById('nextBtn');
-                const slides = document.querySelectorAll('.slide');
-                
-                function navigateTo(index) {
-                    if (index >= 0 && index < slides.length) {
-                        slides[index].scrollIntoView({ behavior: 'smooth' });
-                    }
                 }
-                prevBtn.addEventListener('click', () => navigateTo(window.currentSlideIndex - 1));
-                nextBtn.addEventListener('click', () => navigateTo(window.currentSlideIndex + 1));
-            }
-
-            // --- OPTIMIZED PARTICLE ANIMATION ---
-            function initParticleAnimation() {
-                const canvas = document.getElementById('particle-canvas');
-                if (!canvas) return;
                 
-                const ctx = canvas.getContext('2d');
-                let particles = [];
-                let animationFrameId;
-
-                const resizeCanvas = () => {
-                    canvas.width = canvas.offsetWidth;
-                    canvas.height = canvas.offsetHeight;
-                };
-                
-                class Particle {
-                    constructor(x, y) { this.x = x; this.y = y; this.size = Math.random() * 1.5 + 0.5; this.speedX = Math.random() * 0.4 - 0.2; this.speedY = Math.random() * 0.4 - 0.2; this.color = `rgba(245, 158, 11, ${Math.random() * 0.5 + 0.2})`; }
-                    update() { this.x += this.speedX; this.y += this.speedY; if (this.size > 0.1) this.size -= 0.01; }
-                    draw() { ctx.fillStyle = this.color; ctx.beginPath(); ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2); ctx.fill(); }
+                function initContent() {
+                    document.getElementById('tab-objetivos').innerHTML = courseData.objectives;
+                    document.getElementById('tab-proyecto').innerHTML = courseData.finalProject;
+                    initAccordion();
+                    initTabs();
                 }
 
-                function animateParticles() {
-                    ctx.clearRect(0, 0, canvas.width, canvas.height);
-                    if (particles.length < 100) {
-                        particles.push(new Particle(Math.random() * canvas.width, Math.random() * canvas.height));
-                    }
-                    for (let i = 0; i < particles.length; i++) {
-                        particles[i].update();
-                        particles[i].draw();
-                        if (particles[i].size <= 0.1) { particles.splice(i, 1); i--; }
-                    }
-                    animationFrameId = requestAnimationFrame(animateParticles);
-                }
-
-                const observer = new IntersectionObserver((entries) => {
-                    entries.forEach(entry => {
-                        if (entry.isIntersecting) {
-                            if (!animationFrameId) {
-                                resizeCanvas();
-                                animateParticles();
+                function initScrollObserver() {
+                    const slides = document.querySelectorAll('.slide');
+                    const observer = new IntersectionObserver((entries) => {
+                        entries.forEach(entry => {
+                            if (entry.isIntersecting) {
+                                entry.target.classList.add('is-visible');
+                                currentSlideIndex = Array.from(slides).indexOf(entry.target);
+                            } else {
+                                entry.target.classList.remove('is-visible');
                             }
-                        } else {
-                            if (animationFrameId) {
-                                cancelAnimationFrame(animationFrameId);
-                                animationFrameId = null;
-                            }
+                        });
+                    }, { root: null, threshold: 0.5 });
+                    slides.forEach(slide => observer.observe(slide));
+                }
+
+                function initNavigation() {
+                    const prevBtn = document.getElementById('prevBtn');
+                    const nextBtn = document.getElementById('nextBtn');
+                    const slides = document.querySelectorAll('.slide');
+                    
+                    function navigateTo(index) {
+                        if (index >= 0 && index < slides.length) {
+                            slides[index].scrollIntoView({ behavior: 'smooth' });
                         }
-                    });
-                }, { threshold: 0.1 });
+                    }
+                    prevBtn.addEventListener('click', () => navigateTo(currentSlideIndex - 1));
+                    nextBtn.addEventListener('click', () => navigateTo(currentSlideIndex + 1));
+                }
 
-                observer.observe(document.getElementById('slide-4'));
-                window.addEventListener('resize', resizeCanvas);
-            }
+                function initParticleAnimation() {
+                    const canvas = document.getElementById('particle-canvas');
+                    if (!canvas) return;
+                    
+                    const ctx = canvas.getContext('2d');
+                    let particles = [];
+                    let animationFrameId;
 
-            // --- RUN ALL INITIALIZATIONS ---
-            initContent();
-            initScrollObserver();
-            initNavigation();
-            initParticleAnimation();
-        });
+                    const resizeCanvas = () => {
+                        canvas.width = canvas.offsetWidth;
+                        canvas.height = canvas.offsetHeight;
+                    };
+                    
+                    class Particle {
+                        constructor(x, y) { this.x = x; this.y = y; this.size = Math.random() * 1.5 + 0.5; this.speedX = Math.random() * 0.4 - 0.2; this.speedY = Math.random() * 0.4 - 0.2; this.color = `rgba(245, 158, 11, ${Math.random() * 0.5 + 0.2})`; }
+                        update() { this.x += this.speedX; this.y += this.speedY; if (this.size > 0.1) this.size -= 0.01; }
+                        draw() { ctx.fillStyle = this.color; ctx.beginPath(); ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2); ctx.fill(); }
+                    }
+
+                    function animateParticles() {
+                        ctx.clearRect(0, 0, canvas.width, canvas.height);
+                        if (particles.length < 100) {
+                            particles.push(new Particle(Math.random() * canvas.width, Math.random() * canvas.height));
+                        }
+                        for (let i = 0; i < particles.length; i++) {
+                            particles[i].update();
+                            particles[i].draw();
+                            if (particles[i].size <= 0.1) { particles.splice(i, 1); i--; }
+                        }
+                        animationFrameId = requestAnimationFrame(animateParticles);
+                    }
+
+                    const observer = new IntersectionObserver((entries) => {
+                        entries.forEach(entry => {
+                            if (entry.isIntersecting) {
+                                if (!animationFrameId) {
+                                    resizeCanvas();
+                                    animateParticles();
+                                }
+                            } else {
+                                if (animationFrameId) {
+                                    cancelAnimationFrame(animationFrameId);
+                                    animationFrameId = null;
+                                }
+                            }
+                        });
+                    }, { threshold: 0.1 });
+
+                    observer.observe(document.getElementById('slide-4'));
+                    window.addEventListener('resize', resizeCanvas);
+                }
+
+                // --- EJECUTAR TODAS LAS INICIALIZACIONES ---
+                initContent();
+                initScrollObserver();
+                initNavigation();
+                initParticleAnimation();
+            });
+        })();
     </script>
 
 </body>
 </html>
-
